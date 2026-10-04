@@ -59,3 +59,11 @@ No Windows/macOS desktop, SSH/tmux or alternative native renderer/backend QA was
 ## Operational runbook
 
 From a checkout: `npm test`, `npm run demo -- --animal cat`, then install only the desired host with `npm run install:omp` / `npm run install:pi`. Restart OMP or `/reload` Pi. Inspect choices with `/neon list`; start with `/neon demo cat`. For invisible overlays, inspect `/neon status`, terminal dimensions, editor space, focus and reduced-motion environment. For font boxes, switch to `/neon ascii`; for brightness mismatch, `/neon theme mono`. After moving the checkout rerun the installer. Remove using the corresponding `uninstall:*` script, then restart/reload.
+
+## GitHub delivery receipt
+
+Source and media published to the public repository https://github.com/Wayan123/cli-neon-overlay on `main`, commit `2f640b620bb7b822d7429e52cd1b5991508e20dc`. GitHub's commits API returned that exact SHA. The repository description was updated to describe animal companions, style controls, standalone preview and safe setup; default branch `main` and public visibility were observed through `gh repo view`.
+
+A fresh clone from the GitHub URL passed `npm test` (19/19), ran the documented `npm run demo -- --animal cat` flow in a real PTY, restored the terminal on `q`, and contained every linked README media file. No `npm install` was needed. No force push, remote visibility change, paid inference or CI pass was claimed. This receipt is a documentation follow-up to the source commit.
+
+The follow-up secret scan flagged the public source commit SHA in YAML as a hex high-entropy string. It was verified against GitHub and allowlisted on that exact line only; no credential or file-wide exclusion was added.

@@ -49,5 +49,8 @@ iterations:
       media: docs/media/demo.mp4
       visual_limit: ANSI PTY reconstruction, not desktop pixels
     delivery:
-      status: pending
+      status: complete
       repository: https://github.com/Wayan123/cli-neon-overlay.git
+      branch: main
+      source_commit: 2f640b620bb7b822d7429e52cd1b5991508e20dc # pragma: allowlist secret
+      clean_clone: "npm test 19/19; documented cat preview and README media verified"

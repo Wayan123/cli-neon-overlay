@@ -36,7 +36,7 @@ Completed. Preview PTY cleanup and isolated-HOME/space-path installer scenarios 
 - [x] Independent standards/spec review; address evidence-backed findings and visually critique each animal.
 - [x] Generate PNG/GIF/MP4 from actual terminal output, inspect samples and metadata. No fake host UI.
 - [x] Rewrite README for public clone/run/install/use/uninstall and extension authoring; update changelog, BMAD state and operations evidence.
-- [ ] Initialize Git for the observed empty destination, inspect intended staged diff and secret scan, commit and push without force; verify remote commit.
+- [x] Initialize Git for the observed empty destination, inspect intended staged diff and secret scan, commit and push without force; verify remote commit.
 
 ## Preflight seams
 | Producer | Consumer | Contract |
