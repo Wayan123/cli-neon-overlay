@@ -4,21 +4,42 @@ A little wildlife for your coding terminal.
 
 Let a wireframe cat blink, a spider wander, a fox sway its tail, or a jellyfish drift while you code. Use a **native overlay in OMP/Pi**, or a **separate companion pane alongside Codex, Claude Code, and other terminal CLIs**. The standalone preview lets you try the animals before installing anything.
 
-![Four original wireframe companions in the real standalone terminal preview](docs/media/companions.png)
+## Live demo inside OMP or Pi
 
-![Short terminal recording switching animals and styles](docs/media/demo.gif)
-
-[Watch or download the short MP4 demo](docs/media/demo.mp4). Images and video reconstruct real ANSI terminal output from a PTY, not a fabricated terminal UI or a desktop screenshot. The montage and animation above show the standalone preview; [OMP](docs/media/omp-cat.png) and [Pi](docs/media/pi-jellyfish.png) captures show the native overlays.
-
-## Try a cat first
-
-Requires **Node.js 22 or newer** and an interactive terminal. No `npm install`, account, API key, or runtime dependencies needed for this preview.
+Run the actual coding CLI with the native extension from this checkout:
 
 ```bash
 git clone https://github.com/Wayan123/cli-neon-overlay.git
 cd cli-neon-overlay
+omp --no-extensions -e ./extensions/omp.ts
+# Or use Pi:
+pi --no-extensions -e ./extensions/pi.ts
+```
+
+Then enter these commands in the CLI itself:
+
+```text
+/neon list
+/neon demo cat
+/neon demo fox
+/neon demo jellyfish
+/neon ascii
+/neon on
+/neon next
+/neon off
+```
+
+The animal is rendered live inside the OMP/Pi interface. Typing temporarily hides it; wait one second after entering a command to see it again. `demo` lasts 17 seconds, `on` keeps it visible, and `off` removes it. No video player or separate video file is involved. `--no-extensions` disables other discovered extensions for this invocation; omit it if you need them, and avoid loading this extension twice.
+
+## Live preview without a coding harness
+
+Requires **Node.js 22 or newer** and an interactive terminal. No `npm install`, account, API key, or runtime dependencies needed:
+
+```bash
 npm run demo -- --animal cat
 ```
+
+This command runs the same animal renderer directly in your terminal. It is an interactive standalone preview, not video playback and not proof of a native harness integration.
 
 Press `n` / `p` to browse the animals, `t` for colors, `s` for size, `m` for motion, `l` for position, and `a` for ASCII/Braille. Quit with `q`, Escape, or Ctrl+C. The preview restores the cursor, alternate screen, and terminal input mode when it closes.
 
@@ -52,7 +73,7 @@ node /path/to/cli-neon-overlay/scripts/companion.mjs --animal cat -- codex
 Replace the example paths with your checkout/project locations. The harness keeps that working directory and your existing login/settings. There is no Codex/Claude extension to install, and the launcher does not change their configuration, permissions or first-run prompts.
 
 - Keyboard focus starts in the harness. **Ctrl+B, then Left/Right** switches panes; use `n/p`, `t`, `s`, `m`, `l`, `a` in the animal pane. Ctrl+B twice sends a literal Ctrl+B to the harness.
-- Exit the harness normally to close the companion; its exit code is preserved. **Ctrl+B, then d** ends this owned session rather than leaving a detached agent running. Do not use detach if you want the agent to continue.
+- Exit the harness normally to close the companion; its exit code is preserved. **Ctrl+B, then d** ends this owned session and forcibly stops any remaining live host process group. Finish or save your work before detaching; do not use detach if you want the agent to continue.
 - Each launch owns a private tmux socket. Existing tmux sessions and configuration are not modified. It can run from inside tmux too; the outer session's prefix may require Ctrl+B twice.
 - Minimum starting size: 82 columns × 16 rows; 120 × 30 is more comfortable. tmux handles resizing; a cramped animal pane shows the preview's resize message.
 - `--motion still` freezes the animation. `CLI_NEON_REDUCED_MOTION=1` starts this pane in still mode. `--ascii` avoids Braille font requirements.
@@ -63,9 +84,20 @@ Replace the example paths with your checkout/project locations. The harness keep
 | --- | --- | --- |
 | OMP / Pi | Native extension | `/neon` commands, agent-busy auto mode, typing/dialog pause |
 | Codex CLI / Claude Code | Companion pane | Harness and animal run in separate PTYs; no `/neon` injection or busy detection |
-| OpenCode, Aider, Gemini CLI, other installed interactive commands | Generic companion pane | Same executable/argument interface; individual harness versions must be checked |
+| OpenCode / Gemini CLI | Generic companion pane | Specific versions exercised directly; startup, controls and boundaries documented below |
+| Aider and other installed interactive commands | Generic companion pane | Executable/argument examples; not individually verified here |
 
 Codex CLI 0.159.1 and Claude Code 2.1.63 were launched in real PTYs on WSL alongside animated animals. Their folder-trust/first-run screens remained intact; no trust decision, login or model request was submitted. Generic input, resize, pane controls, detach/signal cleanup and terminal restoration were exercised separately. This is **not a transparent overlay inside Codex/Claude** and does not automatically pause when their agents are idle or typing. See [verification details](docs/operations/multi-harness-verification.md).
+
+The revised live runs also exercised OpenCode 1.15.3 and Gemini CLI 0.43.0, alongside the native OMP/Pi demos and the standalone renderer. OpenCode exposed a hangup-resistant process that survived the earlier teardown; the launcher now stops its owned live process group, and an actual OpenCode rerun verified cleanup. Gemini's own startup auto-updater unexpectedly changed its installed version to 0.62.0; that newer version was not exercised, and no rollback was attempted. Third-party CLIs can have their own startup side effects even though this launcher does not install or update them. No trust/setup prompt or model request was submitted. Aider was unavailable and remains unverified. See [the direct CLI run report](docs/operations/live-cli-verification.md).
+
+### Static terminal captures
+
+These earlier images reconstruct real terminal output; they are reference captures, not a substitute for running the commands above. The current demo is the live CLI session.
+
+![Four original wireframe companions in the standalone terminal preview](docs/media/companions.png)
+
+Native reference captures: [OMP Cat](docs/media/omp-cat.png), [Pi Jellyfish](docs/media/pi-jellyfish.png).
 
 ## Bring one into OMP or Pi
 
@@ -166,7 +198,7 @@ To add a species, add its descriptor to `ANIMALS`, implement its geometry in the
 
 The BMAD flow is recorded in [the multi-animal specification](docs/bmad/multi-animal-spec.md), [implementation plan](docs/bmad/multi-animal-plan.md), and [verification and critique](docs/operations/multi-animal-verification.md). The research draws on [Asciiquarium's species-driven animation](https://github.com/craftzdog/asciiquarium-js), [Campy's coding-agent companions](https://github.com/dropdevrahul/campy), and [CLI discovery guidelines](https://clig.dev/#ease-of-discovery). All shipped animal geometry is original; no source or art from those projects is bundled.
 
-Earlier spider-only [design](docs/bmad/design.md), [verification](docs/operations/verification.md), and `artifacts/` remain historical evidence, not claims that every environment has been rechecked. Current platform limits and exercised versions are in the new verification report.
+Earlier spider-only [design](docs/bmad/design.md), [verification](docs/operations/verification.md), and `artifacts/` remain historical evidence, not claims that every environment has been rechecked. Original terminal logs and earlier recordings are preserved as historical output, not translated or presented as the current demo. Current live-run results are in [the English/live CLI verification report](docs/operations/live-cli-verification.md).
 
 ## License
 

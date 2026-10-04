@@ -10,7 +10,7 @@ const choices = {
 const HELP = [
   'Usage: node scripts/demo.mjs [options]',
   '',
-  'Standalone renderer preview, not an OMP/Pi session.',
+  'Live interactive terminal preview, not an OMP/Pi session or video playback.',
   '',
   'Options:',
   '  --help                  Show this help without a terminal',
@@ -141,7 +141,7 @@ function preview(renderAnimal, settings) {
         if (cells.length === 0) text(4, 'Not enough room for this companion. Resize to continue.');
         text(rows - 2, 'n/p: animal | t: theme | s: size');
         text(rows - 1, 'm: motion | l: position | a: glyphs');
-        text(rows, 'q/Esc/Ctrl+C: exit | Standalone preview');
+        text(rows, 'q/Esc/Ctrl+C: exit | Live standalone preview');
       }
       process.stdout.write(`${frame}\x1b[0m`);
     } catch (error) {

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1
+
+- Made direct live CLI commands the primary demo: native OMP/Pi first, then the live standalone preview and tmux companion panes.
+- Removed separate GIF/MP4 promotion from the README; retained earlier recordings and terminal logs only as historical evidence.
+- Translated the historical verification narrative to English and clarified the live preview's English help/footer.
+- Replaced the active local social posting copy with English captions and instructions for capturing the actual CLI; archived the previous composed social exports locally.
+- Fixed companion teardown for a host that ignores SIGHUP/SIGTERM; direct OpenCode execution exposed the survivor, and a regression plus a real rerun verified its process group stops.
+
 ## 1.2.0
 
 - Added the MIT license and SPDX package metadata.

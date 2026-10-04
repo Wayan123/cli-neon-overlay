@@ -69,3 +69,34 @@ test('Ctrl+C in the harness pane propagates the standard interrupted exit status
     session.close();
   }
 });
+
+test('closing a companion stops a harness that ignores terminal hangup and termination', { skip: !hasTmux, timeout: 15000 }, async () => {
+  const folder = mkdtempSync(join(tmpdir(), 'neon-close-'));
+  const pidFile = join(folder, 'pid');
+  const code = 'process.on("SIGHUP", () => {}); process.on("SIGTERM", () => {}); require("node:fs").writeFileSync(process.argv[1], String(process.pid)); setInterval(() => {}, 1000)';
+  let session;
+  let pid;
+  const running = () => {
+    const state = spawnSync('ps', ['-o', 'stat=', '-p', String(pid)], { encoding: 'utf8' }).stdout.trim();
+    return state !== '' && !state.startsWith('Z');
+  };
+  try {
+    session = createCompanion({ command: [process.execPath, '-e', code, pidFile] });
+    const readyDeadline = Date.now() + 5000;
+    while (!existsSync(pidFile)) {
+      assert.ok(Date.now() < readyDeadline, 'the harness must install its signal handlers before closing');
+      await new Promise(resolve => setTimeout(resolve, 10));
+    }
+    pid = Number(readFileSync(pidFile, 'utf8'));
+    session.close();
+    const exitDeadline = Date.now() + 3000;
+    while (running() && Date.now() < exitDeadline) {
+      await new Promise(resolve => setTimeout(resolve, 10));
+    }
+    assert.equal(running(), false, 'closing the panes must not leave the harness running');
+  } finally {
+    if (pid && running()) process.kill(pid, 'SIGKILL');
+    session?.close();
+    rmSync(folder, { recursive: true, force: true });
+  }
+});

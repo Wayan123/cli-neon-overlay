@@ -2,6 +2,8 @@
 
 Date: 2026-10-04. Product version: 1.2.0. Runtime surface: tmux companion panes, not native overlays inside Codex or Claude Code.
 
+Historical 1.2.0 report. The later direct OpenCode run exposed a surviving host process after detach; 1.2.1 fixes that teardown. See [the current direct CLI verification](live-cli-verification.md) for the fix, expanded harness checks and English local social-kit paths.
+
 ## Decision and boundaries
 
 Keep native OMP/Pi extension integration unchanged. Add `npm run companion -- [animal options] -- executable [arguments...]` for other interactive CLIs. `src/companion.mjs` owns the private tmux lifecycle; `scripts/companion.mjs` owns terminal attachment and signals. The animal pane runs the existing `scripts/demo.mjs` and renderer. Options reuse validation from `src/settings.mjs` rather than introducing another animal catalog.

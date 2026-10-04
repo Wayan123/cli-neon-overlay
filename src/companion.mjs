@@ -21,8 +21,8 @@ Examples:
   npm run companion -- --motion slow -- aider --model your-model
 
 Ctrl+B then Left/Right: switch pane. Animal pane: n/p, t, s, m, l, a.
-Exit your harness normally to close both panes. Ctrl+B then d also ends this
-launcher and its owned session; it does not leave a detached agent running.
+Exit your harness normally to close both panes. Ctrl+B then d forcibly ends
+the owned live host process group; save work first, not a background detach.
 /neon commands and automatic busy/typing detection belong to native OMP/Pi
 extensions, not this companion pane. No harness settings are modified.`;
 
@@ -81,6 +81,7 @@ export function createCompanion({ command, previewArgs = [], cwd = process.cwd()
   const socketPath = join(folder, 'tmux.sock');
   const tmuxArgs = ['-S', socketPath, '-f', '/dev/null'];
   let closed = false;
+  let hostPane;
   const run = args => {
     const result = spawnSync('tmux', [...tmuxArgs, ...args], { encoding: 'utf8', env, timeout: 10000 });
     if (result.error || result.status !== 0) throw new Error(result.error?.message || result.stderr.trim() || 'tmux command failed.');
@@ -88,13 +89,32 @@ export function createCompanion({ command, previewArgs = [], cwd = process.cwd()
   };
   const close = () => {
     if (closed) return;
+    let hostGroup = 0;
+    if (hostPane) {
+      try {
+        const [pid, dead] = run(['display-message', '-p', '-t', hostPane, '#{pane_pid}:#{pane_dead}']).split(':');
+        if (dead === '0') hostGroup = Number(pid);
+      } catch {
+        // A missing server cannot establish ownership of a live process group.
+      }
+    }
     closed = true;
-    spawnSync('tmux', [...tmuxArgs, 'kill-server'], { env, stdio: 'ignore', timeout: 10000 });
-    rmSync(folder, { recursive: true, force: true });
+    const signalHost = signal => {
+      if (hostGroup <= 1 || !Number.isInteger(hostGroup)) return;
+      try { process.kill(-hostGroup, signal); }
+      catch (error) { if (error.code !== 'ESRCH') throw error; }
+    };
+    try {
+      signalHost('SIGTERM');
+    } finally {
+      spawnSync('tmux', [...tmuxArgs, 'kill-server'], { env, stdio: 'ignore', timeout: 10000 });
+      try { signalHost('SIGKILL'); }
+      finally { rmSync(folder, { recursive: true, force: true }); }
+    }
   };
   try {
     // Start a holding shell so immediate harness exits cannot race session setup.
-    const hostPane = run(['new-session', '-d', '-s', 'neon', '-x', String(columns), '-y', String(rows), '-c', cwd, '-P', '-F', '#{pane_id}', '/bin/sh']);
+    hostPane = run(['new-session', '-d', '-s', 'neon', '-x', String(columns), '-y', String(rows), '-c', cwd, '-P', '-F', '#{pane_id}', '/bin/sh']);
     run(['set-option', '-g', 'default-shell', '/bin/sh']);
     run(['set-window-option', '-t', 'neon', 'remain-on-exit', 'on']);
     run(['set-option', '-t', 'neon', 'status-left', 'Neon | ']);

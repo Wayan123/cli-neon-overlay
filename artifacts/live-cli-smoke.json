@@ -1,0 +1,103 @@
+{
+  "recorded_at": "2026-10-04T03:43:49.261547+00:00",
+  "version": "1.2.1",
+  "execution": "Actual interactive CLI programs in PTYs; no video playback",
+  "versions": {
+    "node": "22.22.1",
+    "tmux": "3.2a",
+    "omp": "18.6.0",
+    "pi": "1.0.0",
+    "codex": "0.159.1",
+    "claude": "2.1.63",
+    "opencode": "1.15.3",
+    "gemini_launched": "0.43.0",
+    "gemini_after_startup_auto_update": "0.62.0"
+  },
+  "native": {
+    "omp": {
+      "native_cat_visible": true,
+      "native_cat_frames_changed": true,
+      "english_demo_notification": true,
+      "all_four_species_native": true,
+      "style_and_glyph_controls": true,
+      "typing_pauses_preserves_input_recovers": true,
+      "resize_pauses_recovers": true,
+      "english_status_and_off": true
+    },
+    "pi": {
+      "native_cat_visible": true,
+      "native_cat_frames_changed": true,
+      "english_demo_notification": true,
+      "all_four_species_native": true,
+      "style_and_glyph_controls": true,
+      "typing_pauses_preserves_input_recovers": true,
+      "resize_pauses_recovers": true,
+      "english_status_and_off": true
+    }
+  },
+  "native_exit_codes": {
+    "omp": 143,
+    "pi": 0
+  },
+  "standalone": {
+    "cat_animates_live": true,
+    "all_four_animals_via_keyboard": true,
+    "all_style_keys_and_still_frame": true,
+    "english_resize_guard_and_recovery": true,
+    "quit_exit_zero_tty_restored": true
+  },
+  "post_fix_companions": {
+    "codex": {
+      "actual_startup": true,
+      "live_frames_changed": true,
+      "species_control_host_screen_preserved": true,
+      "host_focus_restored": true,
+      "resize": true,
+      "detach_exit_zero": true,
+      "tty_restored": true,
+      "owned_directory_removed": true,
+      "owned_host_session_not_running": true
+    },
+    "claude": {
+      "actual_startup": true,
+      "live_frames_changed": true,
+      "species_control_host_screen_preserved": true,
+      "host_focus_restored": true,
+      "resize": true,
+      "detach_exit_zero": true,
+      "tty_restored": true,
+      "owned_directory_removed": true,
+      "owned_host_session_not_running": true
+    },
+    "opencode": {
+      "actual_startup": true,
+      "live_frames_changed": true,
+      "species_control_host_screen_preserved": true,
+      "host_focus_restored": true,
+      "resize": true,
+      "detach_exit_zero": true,
+      "tty_restored": true,
+      "owned_directory_removed": true,
+      "owned_host_session_not_running": true
+    }
+  },
+  "gemini": {
+    "actual_unanswered_trust_screen": true,
+    "live_species_control_resize": true,
+    "terminal_restored_owned_processes_absent": true,
+    "unexpected_cli_auto_update": true,
+    "new_version_not_exercised": true
+  },
+  "suite": {
+    "passed": 24,
+    "failed": 0,
+    "skipped": 0
+  },
+  "boundaries": {
+    "aider_installed": false,
+    "prompts_submitted": false,
+    "trust_or_login_answered": false,
+    "rollback_attempted": false
+  },
+  "details": "docs/operations/live-cli-verification.md"
+}
