@@ -1,12 +1,14 @@
 {
   "name": "cli-neon-overlay",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
-  "description": "Wireframe animal companions for OMP and Pi: spiders, cats, foxes and jellyfish that pause while you type",
+  "license": "MIT",
+  "description": "Wireframe animal companions: native OMP/Pi overlays and an isolated companion pane for Codex, Claude Code and other terminal CLIs",
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "demo": "node scripts/demo.mjs",
+    "companion": "node scripts/companion.mjs",
     "install:omp": "node scripts/install.mjs omp",
     "install:pi": "node scripts/install.mjs pi",
     "install:both": "node scripts/install.mjs both",
@@ -18,5 +20,5 @@
     "type": "git",
     "url": "https://github.com/Wayan123/cli-neon-overlay.git"
   },
-  "keywords": ["terminal", "neon", "pets", "omp", "pi", "ascii", "braille"]
+  "keywords": ["terminal", "neon", "pets", "codex", "claude-code", "tmux", "omp", "pi", "ascii", "braille"]
 }

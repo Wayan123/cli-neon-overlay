@@ -2,31 +2,13 @@
 
 A little wildlife for your coding terminal.
 
-Let a wireframe cat blink above your prompt, a spider wander through the output, a fox sway its tail, or a jellyfish drift while your agent works. Built for **OMP and Pi**, with a standalone preview you can try before installing anything.
+Let a wireframe cat blink, a spider wander, a fox sway its tail, or a jellyfish drift while you code. Use a **native overlay in OMP/Pi**, or a **separate companion pane alongside Codex, Claude Code, and other terminal CLIs**. The standalone preview lets you try the animals before installing anything.
 
 ![Four original wireframe companions in the real standalone terminal preview](docs/media/companions.png)
 
 ![Short terminal recording switching animals and styles](docs/media/demo.gif)
 
 [Watch or download the short MP4 demo](docs/media/demo.mp4). Images and video reconstruct real ANSI terminal output from a PTY, not a fabricated terminal UI or a desktop screenshot. The montage and animation above show the standalone preview; [OMP](docs/media/omp-cat.png) and [Pi](docs/media/pi-jellyfish.png) captures show the native overlays.
-
-## Social posting kit
-
-Ready-to-upload videos, matching covers, and a four-image animal carousel:
-
-![Social export layouts: vertical, portrait feed, square, landscape and lightweight Status](docs/media/social/overview.jpg)
-
-| Placement | Export |
-| --- | --- |
-| Reels, TikTok, Stories, Shorts, WhatsApp Status | [1080×1920 vertical](docs/media/social/reels-tiktok-stories-1080x1920.mp4) |
-| Threads portrait, Instagram/Facebook feed | [1080×1350 portrait](docs/media/social/feed-1080x1350.mp4) |
-| Threads square, square feeds | [1080×1080 square](docs/media/social/square-1080x1080.mp4) |
-| YouTube, wide players, landscape posts | [1920×1080 landscape](docs/media/social/landscape-1920x1080.mp4) |
-| Lightweight WhatsApp Status / Story | [720×1280 vertical](docs/media/social/status-lite-720x1280.mp4) |
-
-[Download the complete ZIP pack](docs/media/social/cli-neon-social-pack.zip), or use the [posting guide and covers](docs/media/social/README.md), [Indonesian captions](docs/media/social/captions-id.md), and [carousel images](docs/media/social/carousel/).
-
-Each MP4 is 18 seconds, H.264, 30 fps, with readable on-screen text and no audio. The original CLI recording is 10 fps; exports repeat its frames rather than inventing smoother motion. Layouts are recomposed for each ratio. Check the app's upload preview for crop and UI overlap; this is an asset pack, not a claim that every platform/account upload was tested.
 
 ## Try a cat first
 
@@ -46,6 +28,44 @@ npm run demo -- --help
 npm run demo -- --animal jellyfish --theme sunset --motion slow --position right
 npm run demo -- --animal fox --ascii --size large
 ```
+
+## Run alongside Codex, Claude Code, or another CLI
+
+Companion mode gives your harness its own terminal pane and puts the animal beside it. It uses **tmux 3.2+** on Linux, macOS or Windows via WSL, plus Node.js 22+. Install tmux and your chosen CLI separately; the launcher downloads nothing.
+
+```bash
+npm run companion -- --animal cat -- codex
+npm run companion -- --animal fox -- claude
+npm run companion -- --animal jellyfish --theme sunset -- opencode
+npm run companion -- --ascii -- aider --model your-model
+```
+
+The first `--` belongs to npm. The second separates animal options from the executable and its arguments. Everything after that separator belongs to the harness, including flags such as `--help`.
+
+To work in another project, change into that project and run the launcher by its path:
+
+```bash
+cd /path/to/your/project
+node /path/to/cli-neon-overlay/scripts/companion.mjs --animal cat -- codex
+```
+
+Replace the example paths with your checkout/project locations. The harness keeps that working directory and your existing login/settings. There is no Codex/Claude extension to install, and the launcher does not change their configuration, permissions or first-run prompts.
+
+- Keyboard focus starts in the harness. **Ctrl+B, then Left/Right** switches panes; use `n/p`, `t`, `s`, `m`, `l`, `a` in the animal pane. Ctrl+B twice sends a literal Ctrl+B to the harness.
+- Exit the harness normally to close the companion; its exit code is preserved. **Ctrl+B, then d** ends this owned session rather than leaving a detached agent running. Do not use detach if you want the agent to continue.
+- Each launch owns a private tmux socket. Existing tmux sessions and configuration are not modified. It can run from inside tmux too; the outer session's prefix may require Ctrl+B twice.
+- Minimum starting size: 82 columns × 16 rows; 120 × 30 is more comfortable. tmux handles resizing; a cramped animal pane shows the preview's resize message.
+- `--motion still` freezes the animation. `CLI_NEON_REDUCED_MOTION=1` starts this pane in still mode. `--ascii` avoids Braille font requirements.
+
+### Compatibility is explicit
+
+| Harness | Integration | Behavior |
+| --- | --- | --- |
+| OMP / Pi | Native extension | `/neon` commands, agent-busy auto mode, typing/dialog pause |
+| Codex CLI / Claude Code | Companion pane | Harness and animal run in separate PTYs; no `/neon` injection or busy detection |
+| OpenCode, Aider, Gemini CLI, other installed interactive commands | Generic companion pane | Same executable/argument interface; individual harness versions must be checked |
+
+Codex CLI 0.159.1 and Claude Code 2.1.63 were launched in real PTYs on WSL alongside animated animals. Their folder-trust/first-run screens remained intact; no trust decision, login or model request was submitted. Generic input, resize, pane controls, detach/signal cleanup and terminal restoration were exercised separately. This is **not a transparent overlay inside Codex/Claude** and does not automatically pause when their agents are idle or typing. See [verification details](docs/operations/multi-harness-verification.md).
 
 ## Bring one into OMP or Pi
 
@@ -122,7 +142,7 @@ npm run uninstall:pi
 
 Restart/reload afterward. Keep the checkout while installed: the wrapper references its absolute location. If you move the project, rerun the installer from the new location. If a legacy unmarked wrapper already occupies the target, inspect/remove that file yourself before installing; the installer deliberately refuses to take ownership of it.
 
-## Designed to stay out of your way
+## Native overlays stay out of your way
 
 - Typing hides the overlay for one second; dialogs hide it while they own focus. The extension never consumes your keystrokes.
 - Only the upper safe area is used. Native overlay needs at least 40 columns × 16 rows and eight clear rows above the editor; smaller spaces pause instead of clipping. Standalone preview reserves extra rows for its own controls.
@@ -138,7 +158,7 @@ Restart/reload afterward. Keep the checkout while installed: the wrapper referen
 npm test
 ```
 
-`src/settings.mjs` owns the catalog and validated commands. `src/renderer.mjs` owns original procedural animal geometry and shared rasterization. `src/extension.ts` owns native lifecycle/focus safety; the files in `extensions/` only select the harness. `scripts/demo.mjs` runs the same renderer outside a harness, and `scripts/install.mjs` manages the marked wrappers.
+`src/settings.mjs` owns the catalog and validated commands. `src/renderer.mjs` owns original procedural animal geometry and shared rasterization. `src/extension.ts` owns native lifecycle/focus safety; the files in `extensions/` only select the harness. `scripts/demo.mjs` runs the same renderer outside a harness, `src/companion.mjs` manages isolated tmux sessions for `scripts/companion.mjs`, and `scripts/install.mjs` manages the marked native wrappers.
 
 To add a species, add its descriptor to `ANIMALS`, implement its geometry in the renderer, and extend the boundary/ASCII/animation checks. Catalog-driven commands and the standalone animal selector pick it up without a new lifecycle branch. Do not copy third-party sprites without a compatible license.
 
@@ -147,3 +167,7 @@ To add a species, add its descriptor to `ANIMALS`, implement its geometry in the
 The BMAD flow is recorded in [the multi-animal specification](docs/bmad/multi-animal-spec.md), [implementation plan](docs/bmad/multi-animal-plan.md), and [verification and critique](docs/operations/multi-animal-verification.md). The research draws on [Asciiquarium's species-driven animation](https://github.com/craftzdog/asciiquarium-js), [Campy's coding-agent companions](https://github.com/dropdevrahul/campy), and [CLI discovery guidelines](https://clig.dev/#ease-of-discovery). All shipped animal geometry is original; no source or art from those projects is bundled.
 
 Earlier spider-only [design](docs/bmad/design.md), [verification](docs/operations/verification.md), and `artifacts/` remain historical evidence, not claims that every environment has been rechecked. Current platform limits and exercised versions are in the new verification report.
+
+## License
+
+[MIT](LICENSE), copyright 2026 Wayan123. You may use, modify and redistribute the project under the license terms. Referenced third-party projects and the CLI harnesses retain their own licenses; their source/art is not bundled here.

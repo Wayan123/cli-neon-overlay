@@ -1,10 +1,13 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
 
-- Added a social posting pack: 18-second H.264 videos in vertical 1080p, portrait feed, square, landscape and lightweight 720p Status formats.
-- Added matching PNG covers, a four-animal portrait carousel, Indonesian captions/SRT, conservative safe-area guidance and a complete ZIP download.
-- Added a local Pillow/FFmpeg render recipe and measured output manifest; original 10 fps CLI footage is preserved and repeated to 30 fps export without motion interpolation.
+- Added the MIT license and SPDX package metadata.
+- Added an isolated tmux companion launcher for Codex, Claude Code and other interactive CLI commands, reusing the existing animal renderer and settings.
+- Preserved argument quoting, working directory, initial harness keyboard focus and exit status; clean up only the launcher's private tmux session on normal exit, detach or termination.
+- Propagated harness keyboard-interrupt status through a waiting POSIX shell, including tmux 3.2 where pane signal metadata is unavailable.
+- Kept OMP/Pi native overlays separate from generic pane mode; documented requirements, first-run screens, reduced motion and verified compatibility boundaries.
+- Removed social posting materials and their render tool from current repository tracking while preserving local files; ignored them for subsequent commits.
 
 ## 1.1.0
 

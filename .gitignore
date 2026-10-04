@@ -10,3 +10,7 @@ __pycache__/
 .DS_Store
 .superpowers/
 .worktrees/
+
+# Local social posting material; not part of the distributed product.
+docs/media/social/
+scripts/render-social.py
