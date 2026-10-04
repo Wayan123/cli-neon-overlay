@@ -1,0 +1,2626 @@
+{
+  "source": "docs/media/demo.mp4",
+  "source_sha256": "569d901fa9402eaedb1efbef3a77134f0854408754428768c12b80a1b53f5d8e",
+  "source_dimensions": [
+    832,
+    560
+  ],
+  "source_fps": 10,
+  "crop_xywh": [
+    240,
+    100,
+    360,
+    340
+  ],
+  "duration_seconds": 18,
+  "render_method": "local Pillow composition + FFmpeg; source frames repeated to 30fps",
+  "music_and_narration": "none",
+  "fonts": {
+    "regular": "DejaVuSans.ttf",
+    "bold": "DejaVuSans-Bold.ttf",
+    "mono": "DejaVuSansMono.ttf"
+  },
+  "videos": [
+    {
+      "file": "reels-tiktok-stories-1080x1920.mp4",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "duration_seconds": 18,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "bytes": 631512,
+      "sha256": "d391ef0becf29f4df72266899c46f02df9ef1ccc8d22d8a3dbb5d4f4d72a3f43",
+      "full_decode": "pass",
+      "cover": "cover-vertical-1080x1920.png",
+      "cover_sha256": "7d0222bbbb811c90ba5e872d6ca36385ca3278e20e280b61d1b7b2e1f6b06d6b",
+      "safe_area": [
+        90,
+        230,
+        900,
+        1490
+      ],
+      "text_bounds": [
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              92,
+              250,
+              581,
+              276
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              92,
+              330,
+              738,
+              390
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              92,
+              428,
+              688,
+              488
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "01 / LABA-LABA",
+            "rect": [
+              92,
+              540,
+              362,
+              566
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Delapan kaki bersendi.",
+            "rect": [
+              92,
+              1260,
+              471,
+              1292
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo spider",
+            "rect": [
+              92,
+              1320,
+              399,
+              1349
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              92,
+              1400,
+              715,
+              1427
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              92,
+              1445,
+              800,
+              1479
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              92,
+              250,
+              581,
+              276
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              92,
+              330,
+              738,
+              390
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              92,
+              428,
+              688,
+              488
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "02 / KUCING",
+            "rect": [
+              92,
+              540,
+              304,
+              566
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Kedip, kumis, ekor bergerak.",
+            "rect": [
+              92,
+              1260,
+              564,
+              1292
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo cat",
+            "rect": [
+              92,
+              1320,
+              345,
+              1346
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              92,
+              1400,
+              715,
+              1427
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              92,
+              1445,
+              800,
+              1479
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              92,
+              250,
+              581,
+              276
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              92,
+              330,
+              738,
+              390
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              92,
+              428,
+              688,
+              488
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "03 / RUBAH",
+            "rect": [
+              92,
+              540,
+              285,
+              566
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Telinga runcing. Ekor lebar.",
+            "rect": [
+              91,
+              1260,
+              538,
+              1292
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo fox",
+            "rect": [
+              92,
+              1320,
+              345,
+              1346
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              92,
+              1400,
+              715,
+              1427
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              92,
+              1445,
+              800,
+              1479
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              92,
+              250,
+              581,
+              276
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              92,
+              330,
+              738,
+              390
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              92,
+              428,
+              688,
+              488
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "04 / UBUR-UBUR",
+            "rect": [
+              92,
+              540,
+              362,
+              566
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Ubur-ubur, versi wireframe.",
+            "rect": [
+              92,
+              1260,
+              547,
+              1289
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo jellyfish",
+            "rect": [
+              92,
+              1320,
+              453,
+              1349
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              92,
+              1400,
+              715,
+              1427
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              92,
+              1445,
+              800,
+              1479
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              92,
+              250,
+              581,
+              276
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              92,
+              330,
+              738,
+              390
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              92,
+              428,
+              688,
+              488
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "05 / GARIS ASCII",
+            "rect": [
+              92,
+              540,
+              400,
+              566
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Detail Braille atau garis ASCII.",
+            "rect": [
+              92,
+              1260,
+              587,
+              1292
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon ascii",
+            "rect": [
+              92,
+              1320,
+              291,
+              1346
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              92,
+              1400,
+              715,
+              1427
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              92,
+              1445,
+              800,
+              1479
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              92,
+              250,
+              581,
+              276
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              92,
+              330,
+              738,
+              390
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              92,
+              428,
+              688,
+              488
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "06 / MONO + GERAK DIAM",
+            "rect": [
+              92,
+              540,
+              516,
+              566
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Warna, posisi, ukuran, gerak.",
+            "rect": [
+              92,
+              1260,
+              573,
+              1292
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon motion still",
+            "rect": [
+              92,
+              1320,
+              417,
+              1346
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              92,
+              1400,
+              715,
+              1427
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              92,
+              1445,
+              800,
+              1479
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "file": "feed-1080x1350.mp4",
+      "width": 1080,
+      "height": 1350,
+      "fps": 30,
+      "duration_seconds": 18,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "bytes": 603277,
+      "sha256": "936e17af25345c3e87c140844fcd3ecda08ef2c60a15ba7ec657c25c43b667d2",
+      "full_decode": "pass",
+      "cover": "cover-feed-1080x1350.png",
+      "cover_sha256": "3515fb1fbcc5757515940f0ca3ed2797b19532c1dcb945e865cec6936378b5c5",
+      "safe_area": [
+        60,
+        60,
+        1020,
+        1300
+      ],
+      "text_bounds": [
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              72,
+              74,
+              530,
+              99
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              72,
+              140,
+              618,
+              191
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              72,
+              222,
+              576,
+              273
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "01 / LABA-LABA",
+            "rect": [
+              72,
+              325,
+              325,
+              350
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Delapan kaki bersendi.",
+            "rect": [
+              72,
+              1070,
+              463,
+              1103
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo spider",
+            "rect": [
+              72,
+              1130,
+              369,
+              1158
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              72,
+              1210,
+              557,
+              1231
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              72,
+              1245,
+              623,
+              1272
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              72,
+              74,
+              530,
+              99
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              72,
+              140,
+              618,
+              191
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              72,
+              222,
+              576,
+              273
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "02 / KUCING",
+            "rect": [
+              72,
+              325,
+              271,
+              350
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Kedip, kumis, ekor bergerak.",
+            "rect": [
+              72,
+              1070,
+              559,
+              1103
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo cat",
+            "rect": [
+              72,
+              1130,
+              316,
+              1155
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              72,
+              1210,
+              557,
+              1231
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              72,
+              1245,
+              623,
+              1272
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              72,
+              74,
+              530,
+              99
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              72,
+              140,
+              618,
+              191
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              72,
+              222,
+              576,
+              273
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "03 / RUBAH",
+            "rect": [
+              72,
+              325,
+              253,
+              350
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Telinga runcing. Ekor lebar.",
+            "rect": [
+              71,
+              1070,
+              532,
+              1103
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo fox",
+            "rect": [
+              72,
+              1130,
+              316,
+              1155
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              72,
+              1210,
+              557,
+              1231
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              72,
+              1245,
+              623,
+              1272
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              72,
+              74,
+              530,
+              99
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              72,
+              140,
+              618,
+              191
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              72,
+              222,
+              576,
+              273
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "04 / UBUR-UBUR",
+            "rect": [
+              72,
+              325,
+              326,
+              350
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Ubur-ubur, versi wireframe.",
+            "rect": [
+              72,
+              1070,
+              540,
+              1100
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo jellyfish",
+            "rect": [
+              72,
+              1130,
+              421,
+              1158
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              72,
+              1210,
+              557,
+              1231
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              72,
+              1245,
+              623,
+              1272
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              72,
+              74,
+              530,
+              99
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              72,
+              140,
+              618,
+              191
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              72,
+              222,
+              576,
+              273
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "05 / GARIS ASCII",
+            "rect": [
+              72,
+              325,
+              361,
+              350
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Detail Braille atau garis ASCII.",
+            "rect": [
+              72,
+              1070,
+              582,
+              1103
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon ascii",
+            "rect": [
+              72,
+              1130,
+              264,
+              1155
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              72,
+              1210,
+              557,
+              1231
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              72,
+              1245,
+              623,
+              1272
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              72,
+              74,
+              530,
+              99
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              72,
+              140,
+              618,
+              191
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              72,
+              222,
+              576,
+              273
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "06 / MONO + GERAK DIAM",
+            "rect": [
+              72,
+              325,
+              469,
+              350
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Warna, posisi, ukuran, gerak.",
+            "rect": [
+              72,
+              1070,
+              568,
+              1103
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon motion still",
+            "rect": [
+              72,
+              1130,
+              386,
+              1155
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              72,
+              1210,
+              557,
+              1231
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              72,
+              1245,
+              623,
+              1272
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "file": "square-1080x1080.mp4",
+      "width": 1080,
+      "height": 1080,
+      "fps": 30,
+      "duration_seconds": 18,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "bytes": 486850,
+      "sha256": "892d8c49021d332b92260056f5cb948dd6500d1f0688e9e441c6fd3f31d4ab31",
+      "full_decode": "pass",
+      "cover": "cover-square-1080x1080.png",
+      "cover_sha256": "bcb78dc9cd56778a8b0f85e107c5c68190dbdb4292478e0d6828940e6cdb60e4",
+      "safe_area": [
+        50,
+        45,
+        1030,
+        1050
+      ],
+      "text_bounds": [
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              60,
+              55,
+              472,
+              77
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              60,
+              110,
+              548,
+              156
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              60,
+              184,
+              511,
+              230
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "01 / LABA-LABA",
+            "rect": [
+              60,
+              275,
+              296,
+              298
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Delapan kaki bersendi.",
+            "rect": [
+              60,
+              870,
+              405,
+              899
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo spider",
+            "rect": [
+              60,
+              925,
+              326,
+              950
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              60,
+              982,
+              493,
+              1001
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              60,
+              1013,
+              552,
+              1037
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              60,
+              55,
+              472,
+              77
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              60,
+              110,
+              548,
+              156
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              60,
+              184,
+              511,
+              230
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "02 / KUCING",
+            "rect": [
+              60,
+              275,
+              245,
+              298
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Kedip, kumis, ekor bergerak.",
+            "rect": [
+              60,
+              870,
+              489,
+              899
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo cat",
+            "rect": [
+              60,
+              925,
+              279,
+              947
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              60,
+              982,
+              493,
+              1001
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              60,
+              1013,
+              552,
+              1037
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              60,
+              55,
+              472,
+              77
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              60,
+              110,
+              548,
+              156
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              60,
+              184,
+              511,
+              230
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "03 / RUBAH",
+            "rect": [
+              60,
+              275,
+              229,
+              298
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Telinga runcing. Ekor lebar.",
+            "rect": [
+              59,
+              870,
+              465,
+              899
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo fox",
+            "rect": [
+              60,
+              925,
+              279,
+              947
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              60,
+              982,
+              493,
+              1001
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              60,
+              1013,
+              552,
+              1037
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              60,
+              55,
+              472,
+              77
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              60,
+              110,
+              548,
+              156
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              60,
+              184,
+              511,
+              230
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "04 / UBUR-UBUR",
+            "rect": [
+              60,
+              275,
+              296,
+              298
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Ubur-ubur, versi wireframe.",
+            "rect": [
+              60,
+              870,
+              473,
+              896
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo jellyfish",
+            "rect": [
+              60,
+              925,
+              373,
+              950
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              60,
+              982,
+              493,
+              1001
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              60,
+              1013,
+              552,
+              1037
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              60,
+              55,
+              472,
+              77
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              60,
+              110,
+              548,
+              156
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              60,
+              184,
+              511,
+              230
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "05 / GARIS ASCII",
+            "rect": [
+              60,
+              275,
+              330,
+              298
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Detail Braille atau garis ASCII.",
+            "rect": [
+              60,
+              870,
+              510,
+              899
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon ascii",
+            "rect": [
+              60,
+              925,
+              232,
+              947
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              60,
+              982,
+              493,
+              1001
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              60,
+              1013,
+              552,
+              1037
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              60,
+              55,
+              472,
+              77
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              60,
+              110,
+              548,
+              156
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              60,
+              184,
+              511,
+              230
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "06 / MONO + GERAK DIAM",
+            "rect": [
+              60,
+              275,
+              431,
+              298
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Warna, posisi, ukuran, gerak.",
+            "rect": [
+              60,
+              870,
+              497,
+              899
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon motion still",
+            "rect": [
+              60,
+              925,
+              342,
+              947
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              60,
+              982,
+              493,
+              1001
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              60,
+              1013,
+              552,
+              1037
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "file": "landscape-1920x1080.mp4",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration_seconds": 18,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "bytes": 616748,
+      "sha256": "83440c1929c7143752e2149f7fa98ffa4b30ebc87a1b83300d001d1a9b516011",
+      "full_decode": "pass",
+      "cover": "cover-landscape-1920x1080.png",
+      "cover_sha256": "ee79e088c771d4b5339aa21d5a32a09471f6e3e28c57b890bdfe2e551d1930f0",
+      "safe_area": [
+        100,
+        120,
+        1820,
+        950
+      ],
+      "text_bounds": [
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              120,
+              165,
+              639,
+              193
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              120,
+              260,
+              815,
+              325
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              120,
+              365,
+              762,
+              430
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "01 / LABA-LABA",
+            "rect": [
+              120,
+              500,
+              390,
+              526
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Delapan kaki bersendi.",
+            "rect": [
+              120,
+              580,
+              511,
+              613
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo spider",
+            "rect": [
+              120,
+              650,
+              427,
+              679
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              120,
+              800,
+              553,
+              819
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              120,
+              831,
+              612,
+              855
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              120,
+              165,
+              639,
+              193
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              120,
+              260,
+              815,
+              325
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              120,
+              365,
+              762,
+              430
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "02 / KUCING",
+            "rect": [
+              120,
+              500,
+              332,
+              526
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Kedip, kumis, ekor bergerak.",
+            "rect": [
+              120,
+              580,
+              607,
+              613
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo cat",
+            "rect": [
+              120,
+              650,
+              373,
+              676
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              120,
+              800,
+              553,
+              819
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              120,
+              831,
+              612,
+              855
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              120,
+              165,
+              639,
+              193
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              120,
+              260,
+              815,
+              325
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              120,
+              365,
+              762,
+              430
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "03 / RUBAH",
+            "rect": [
+              120,
+              500,
+              313,
+              526
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Telinga runcing. Ekor lebar.",
+            "rect": [
+              119,
+              580,
+              580,
+              613
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo fox",
+            "rect": [
+              120,
+              650,
+              373,
+              676
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              120,
+              800,
+              553,
+              819
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              120,
+              831,
+              612,
+              855
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              120,
+              165,
+              639,
+              193
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              120,
+              260,
+              815,
+              325
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              120,
+              365,
+              762,
+              430
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "04 / UBUR-UBUR",
+            "rect": [
+              120,
+              500,
+              390,
+              526
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Ubur-ubur, versi wireframe.",
+            "rect": [
+              120,
+              580,
+              588,
+              610
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo jellyfish",
+            "rect": [
+              120,
+              650,
+              481,
+              679
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              120,
+              800,
+              553,
+              819
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              120,
+              831,
+              612,
+              855
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              120,
+              165,
+              639,
+              193
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              120,
+              260,
+              815,
+              325
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              120,
+              365,
+              762,
+              430
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "05 / GARIS ASCII",
+            "rect": [
+              120,
+              500,
+              428,
+              526
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Detail Braille atau garis ASCII.",
+            "rect": [
+              120,
+              580,
+              630,
+              613
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon ascii",
+            "rect": [
+              120,
+              650,
+              319,
+              676
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              120,
+              800,
+              553,
+              819
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              120,
+              831,
+              612,
+              855
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              120,
+              165,
+              639,
+              193
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              120,
+              260,
+              815,
+              325
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              120,
+              365,
+              762,
+              430
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "06 / MONO + GERAK DIAM",
+            "rect": [
+              120,
+              500,
+              544,
+              526
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Warna, posisi, ukuran, gerak.",
+            "rect": [
+              120,
+              580,
+              616,
+              613
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon motion still",
+            "rect": [
+              120,
+              650,
+              445,
+              676
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              120,
+              800,
+              553,
+              819
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              120,
+              831,
+              612,
+              855
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "file": "status-lite-720x1280.mp4",
+      "width": 720,
+      "height": 1280,
+      "fps": 30,
+      "duration_seconds": 18,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "bytes": 279462,
+      "sha256": "89462e0b7a51788e270dca9d115ff35c7f95b9f1b8b95ac42bfd4809e5482aa6",
+      "full_decode": "pass",
+      "cover": "cover-status-lite-720x1280.png",
+      "cover_sha256": "40eb729ac120422ef8625756b9ded78cdad656611802d75e64413d1d84e23e60",
+      "safe_area": [
+        60,
+        153,
+        600,
+        993
+      ],
+      "text_bounds": [
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              61,
+              167,
+              387,
+              184
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              61,
+              220,
+              492,
+              260
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              61,
+              285,
+              459,
+              325
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "01 / LABA-LABA",
+            "rect": [
+              61,
+              360,
+              241,
+              377
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Delapan kaki bersendi.",
+            "rect": [
+              61,
+              840,
+              314,
+              861
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo spider",
+            "rect": [
+              61,
+              880,
+              266,
+              899
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              61,
+              933,
+              477,
+              951
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              61,
+              963,
+              533,
+              986
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              61,
+              167,
+              387,
+              184
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              61,
+              220,
+              492,
+              260
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              61,
+              285,
+              459,
+              325
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "02 / KUCING",
+            "rect": [
+              61,
+              360,
+              203,
+              377
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Kedip, kumis, ekor bergerak.",
+            "rect": [
+              61,
+              840,
+              376,
+              861
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo cat",
+            "rect": [
+              61,
+              880,
+              230,
+              897
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              61,
+              933,
+              477,
+              951
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              61,
+              963,
+              533,
+              986
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              61,
+              167,
+              387,
+              184
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              61,
+              220,
+              492,
+              260
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              61,
+              285,
+              459,
+              325
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "03 / RUBAH",
+            "rect": [
+              61,
+              360,
+              190,
+              377
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Telinga runcing. Ekor lebar.",
+            "rect": [
+              61,
+              840,
+              359,
+              861
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo fox",
+            "rect": [
+              61,
+              880,
+              230,
+              897
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              61,
+              933,
+              477,
+              951
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              61,
+              963,
+              533,
+              986
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              61,
+              167,
+              387,
+              184
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              61,
+              220,
+              492,
+              260
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              61,
+              285,
+              459,
+              325
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "04 / UBUR-UBUR",
+            "rect": [
+              61,
+              360,
+              241,
+              377
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Ubur-ubur, versi wireframe.",
+            "rect": [
+              61,
+              840,
+              365,
+              859
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon demo jellyfish",
+            "rect": [
+              61,
+              880,
+              302,
+              899
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              61,
+              933,
+              477,
+              951
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              61,
+              963,
+              533,
+              986
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              61,
+              167,
+              387,
+              184
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              61,
+              220,
+              492,
+              260
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              61,
+              285,
+              459,
+              325
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "05 / GARIS ASCII",
+            "rect": [
+              61,
+              360,
+              267,
+              377
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Detail Braille atau garis ASCII.",
+            "rect": [
+              61,
+              840,
+              391,
+              861
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon ascii",
+            "rect": [
+              61,
+              880,
+              194,
+              897
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              61,
+              933,
+              477,
+              951
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              61,
+              963,
+              533,
+              986
+            ]
+          }
+        ],
+        [
+          {
+            "slot": "brand",
+            "text": "CLI NEON OVERLAY / OMP + PI",
+            "rect": [
+              61,
+              167,
+              387,
+              184
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "Terminal kamu",
+            "rect": [
+              61,
+              220,
+              492,
+              260
+            ]
+          },
+          {
+            "slot": "title",
+            "text": "butuh teman.",
+            "rect": [
+              61,
+              285,
+              459,
+              325
+            ]
+          },
+          {
+            "slot": "label",
+            "text": "06 / MONO + GERAK DIAM",
+            "rect": [
+              61,
+              360,
+              344,
+              377
+            ]
+          },
+          {
+            "slot": "caption",
+            "text": "Warna, posisi, ukuran, gerak.",
+            "rect": [
+              61,
+              840,
+              382,
+              861
+            ]
+          },
+          {
+            "slot": "command",
+            "text": "/neon motion still",
+            "rect": [
+              61,
+              880,
+              278,
+              897
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "Preview CLI asli. Coba dari GitHub.",
+            "rect": [
+              61,
+              933,
+              477,
+              951
+            ]
+          },
+          {
+            "slot": "footer",
+            "text": "github.com/Wayan123/cli-neon-overlay",
+            "rect": [
+              61,
+              963,
+              533,
+              986
+            ]
+          }
+        ]
+      ]
+    }
+  ],
+  "carousel": [
+    {
+      "file": "carousel/01-spider.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "8abbc86864105bbd1f6ae91343410f646e7837bf3b2711cdbe1eab4819893725"
+    },
+    {
+      "file": "carousel/02-cat.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "32d40fad3355f293979baf3d67be213a8cac6e0898275c52acce15df1c6a2193"
+    },
+    {
+      "file": "carousel/03-fox.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "0db562db32026f9593d7729fb872de836986e32af317b24d602a43650976645e"
+    },
+    {
+      "file": "carousel/04-jellyfish.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "d6e2f462c44e354e3c94f5e4b8eca8701fd3de7ea2a950a3e5fd82138a94f182"
+    }
+  ]
+}

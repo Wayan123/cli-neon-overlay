@@ -1,0 +1,27 @@
+1
+00:00:00,000 --> 00:00:03,000
+Terminal kamu butuh teman.
+Laba-laba dengan delapan kaki bersendi.
+
+2
+00:00:03,000 --> 00:00:06,000
+Kucing wireframe:
+kedip, kumis, dan ekor bergerak.
+
+3
+00:00:06,000 --> 00:00:09,000
+Rubah di terminal:
+telinga runcing, ekor lebar.
+
+4
+00:00:09,000 --> 00:00:12,000
+Ubur-ubur versi wireframe.
+
+5
+00:00:12,000 --> 00:00:15,000
+Pilih detail Braille atau garis ASCII.
+
+6
+00:00:15,000 --> 00:00:18,000
+Atur warna, posisi, ukuran, dan gerak.
+github.com/Wayan123/cli-neon-overlay

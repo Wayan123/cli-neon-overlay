@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Added a social posting pack: 18-second H.264 videos in vertical 1080p, portrait feed, square, landscape and lightweight 720p Status formats.
+- Added matching PNG covers, a four-animal portrait carousel, Indonesian captions/SRT, conservative safe-area guidance and a complete ZIP download.
+- Added a local Pillow/FFmpeg render recipe and measured output manifest; original 10 fps CLI footage is preserved and repeated to 30 fps export without motion interpolation.
+
 ## 1.1.0
 
 - Added original cat, fox and jellyfish wireframes alongside the articulated spider, with species-specific blinking, tail sway and bell/tentacle motion.

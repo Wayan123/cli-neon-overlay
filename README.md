@@ -10,6 +10,24 @@ Let a wireframe cat blink above your prompt, a spider wander through the output,
 
 [Watch or download the short MP4 demo](docs/media/demo.mp4). Images and video reconstruct real ANSI terminal output from a PTY, not a fabricated terminal UI or a desktop screenshot. The montage and animation above show the standalone preview; [OMP](docs/media/omp-cat.png) and [Pi](docs/media/pi-jellyfish.png) captures show the native overlays.
 
+## Social posting kit
+
+Ready-to-upload videos, matching covers, and a four-image animal carousel:
+
+![Social export layouts: vertical, portrait feed, square, landscape and lightweight Status](docs/media/social/overview.jpg)
+
+| Placement | Export |
+| --- | --- |
+| Reels, TikTok, Stories, Shorts, WhatsApp Status | [1080×1920 vertical](docs/media/social/reels-tiktok-stories-1080x1920.mp4) |
+| Threads portrait, Instagram/Facebook feed | [1080×1350 portrait](docs/media/social/feed-1080x1350.mp4) |
+| Threads square, square feeds | [1080×1080 square](docs/media/social/square-1080x1080.mp4) |
+| YouTube, wide players, landscape posts | [1920×1080 landscape](docs/media/social/landscape-1920x1080.mp4) |
+| Lightweight WhatsApp Status / Story | [720×1280 vertical](docs/media/social/status-lite-720x1280.mp4) |
+
+[Download the complete ZIP pack](docs/media/social/cli-neon-social-pack.zip), or use the [posting guide and covers](docs/media/social/README.md), [Indonesian captions](docs/media/social/captions-id.md), and [carousel images](docs/media/social/carousel/).
+
+Each MP4 is 18 seconds, H.264, 30 fps, with readable on-screen text and no audio. The original CLI recording is 10 fps; exports repeat its frames rather than inventing smoother motion. Layouts are recomposed for each ratio. Check the app's upload preview for crop and UI overlap; this is an asset pack, not a claim that every platform/account upload was tested.
+
 ## Try a cat first
 
 Requires **Node.js 22 or newer** and an interactive terminal. No `npm install`, account, API key, or runtime dependencies needed for this preview.
