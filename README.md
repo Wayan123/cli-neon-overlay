@@ -8,9 +8,9 @@ Let a wireframe cat blink, a spider wander, a fox sway its tail, or a jellyfish 
 
 ![Spider overlay running over the real CLI in the supplied recording](docs/media/live-cli-demo.gif)
 
-The looping GIF above plays inline when you open this README. It comes from the supplied `assets/video-example.mp4`, showing the spider animated over a real coding CLI, not the separate standalone renderer or a reconstructed terminal. The full 1480×762 frame and complete video sequence are preserved; GIF conversion uses a 256-color palette and has no audio.
+The looping GIF above plays inline when you open this README. It comes from the replacement `assets/video-example.mp4`, showing the spider animated over a real coding CLI during a system-health check, not the separate standalone renderer or a reconstructed terminal. The full 1486×754 frame and complete video sequence are preserved; GIF conversion uses a 256-color palette and has no audio.
 
-This clip shows the spider, not every animal or harness. Existing project text, paths and a model-timeout message remain visible as recorded; they are not rewritten or presented as a successful coding task. English descriptions accompany the original mixed-language CLI capture. The commands below let you run the effect yourself.
+This clip shows the spider, not every animal or harness. It replaces the first recording that showed a server launch command. The new session's project text, local paths and diagnostic output remain as recorded; this is a demonstration of the overlay, not proof of a completed coding task. English descriptions accompany the original mixed-language CLI capture. The commands below let you run the effect yourself.
 
 ## Live demo inside OMP or Pi
 

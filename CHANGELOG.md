@@ -1,5 +1,11 @@
 # Changelog
 
+## Replacement source recording
+
+- Replaced the README GIF, public MP4 and poster with derivatives of the new supplied CLI recording, removing the first recording's server-launch screen from current demo files.
+- Regenerated all five local social MP4 exports, matching covers, source manifest and posting ZIP; updated English copy for the new system-health session.
+- Kept social material local-only. Earlier commits retain the first recording; no Git history rewrite was performed.
+
 ## README GIF revision
 
 - Replaced the README's linked MP4 and static poster with an inline, infinitely looping GIF converted from the same supplied actual CLI recording.

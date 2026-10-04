@@ -1,8 +1,8 @@
 # English copy and direct live CLI verification
 
-Date: 2026-10-04. Product version: 1.2.1. Environment: Linux/WSL, Node.js 22.22.1, tmux 3.2a. All scenarios below launched actual interactive programs in PTYs. No video file, video player, composed terminal, or simulated harness supplied the demo.
+Date: 2026-10-04. Product version: 1.2.1. Environment: Linux/WSL, Node.js 22.22.1, tmux 3.2a. The runtime scenarios below launched actual interactive programs in PTYs; they did not use a recording or simulated harness. The current README and social recording provenance is documented separately under “Current supplied recording: replacement source.”
 
-## Revision
+## Historical live-first revision
 
 - The README starts with commands that load the native extension into OMP/Pi, then presents the live standalone renderer and real companion-pane launches.
 - Removed the README's GIF/MP4 promotion. Earlier recordings and original terminal logs remain historical evidence, not the current demo. Historical logs are not rewritten to change their language or output.
@@ -80,27 +80,19 @@ Observed checks and boundaries are also recorded in [`artifacts/live-cli-smoke.j
 
 The local social kit remains excluded from Git delivery. No social login, upload, posting, public stream or external clip submission was performed.
 
-## Supplied real CLI recording: demo correction
+## Current supplied recording: replacement source
 
-The revised primary README demo comes from the user-supplied `assets/video-example.mp4`, not the standalone renderer or the earlier reconstructed terminal captures. The source is H.264, 1480×762, 30 fps, with a container duration of 11.52 seconds and an AAC audio track. SHA-256: `cae3b0be063b5875f9382ad406b0774632ade30bcd426af680bbf4b4e8561b25`.
+The user replaced `assets/video-example.mp4` to avoid the first recording's visible server-launch line. Every current derivative of that recording has been regenerated: the inline README GIF, public silent MP4 and poster, all five local social videos and covers, the local source manifest and posting ZIP. The older standalone demo and species-reference images do not derive from either supplied recording and remain unchanged.
 
-The screen shows a spider animated over actual CLI session text. It includes mixed-language project text, local paths and a model-timeout message. It does not establish the runtime version, a completed model task, other species or other harness integrations. This supplied footage is not a new rerun of the runtime verification above.
+Current source: H.264, 1486×754, 30 fps, 368 video frames, approximately 12.27 seconds, with an AAC audio track. SHA-256: `bbda61e016c90b8dd38865a3cb50cb3632b9be10e234b100fbda04bd280044da`. The source stays local and is not modified by conversion.
 
-`docs/media/live-cli-demo.mp4` is a silent remux of the original video stream with faststart: no scaling, cropping, reconstructed UI or video re-encoding. `docs/media/live-cli-poster.png` is the complete source frame at 4 seconds. The original supplied file remains local and unchanged; only the silent product demo and poster are intended for Git delivery.
+The new screen shows the spider over actual CLI content during a system-health check. It still contains mixed-language project text, local paths, a machine name and diagnostic output. The first server-launch screen is not the current demo; this replacement is not a claim that the new recording contains no identifying information. It does not establish runtime versions, other species/harnesses or completion of a coding task, and it is not a new execution of the runtime checks above.
 
-The local social pack uses five proportional scale-and-pad exports, matching frame covers and English captions for the spider shown. Padding deliberately preserves the entire CLI; portrait text is smaller than landscape. The audio is omitted rather than publishing unreviewed sound. These assets and their measured provenance manifest stay under ignored `docs/media/social/`. Historical composed exports remain in ignored `.cache/legacy-social/` and are not promoted or included in the revised ZIP. No social login, upload or post was performed.
+`docs/media/live-cli-demo.mp4` is a silent remux of the new source video with faststart, without scaling, cropping or video re-encoding. `docs/media/live-cli-poster.png` is its complete frame at 4 seconds. These files were replaced as well, rather than leaving the first recording accessible through current MP4/poster paths.
 
-Media correction checks: FFmpeg decoded the public video and all five social exports with `-xerror`, without errors. Each contains 345 video frames at 30 fps and no audio; the padded exports run 11.50 seconds. All 345 public decoded frame pixel hashes match the source in order (the remux changes the initial timestamp offset). The six PNGs decoded successfully, relative README/provenance links resolved, and the ZIP passed CRC verification with exactly 14 current members. The source SHA-256 remained unchanged.
+The README embeds `docs/media/live-cli-demo.gif` directly as a Markdown image. It retains all 368 frames at 1486×754, with a 256-color palette and infinite looping (`loop=0`). Its 30/40 ms frame delays total 12.26 seconds; GIF timing is quantized to centiseconds. File size: 12,168,822 bytes. SHA-256: `3c2d377c0746e238b1a19faf6cecdc4d70fdc24c0b418c69cdbe4f0cb4db87a6`. Full-resolution text and every frame are retained at the cost of a larger download.
 
-The existing suite passed 24/24 again for this media-only correction; no implementation files changed and no new live harness/model run is claimed. `npm audit --omit=dev` could not run because the repository has no lockfile. `package.json` declares no dependencies; no lockfile or dependency installation was added just to manufacture an audit result.
-
-## Inline README GIF revision
-
-The README now embeds `docs/media/live-cli-demo.gif` as a Markdown image, replacing its MP4 link and static poster. The earlier MP4 and poster remain historical product media; the social MP4 exports are unchanged.
-
-The GIF comes directly from the same supplied `assets/video-example.mp4`. It preserves all 345 frames at 1480×762 without cropping or scaling, uses a 256-color palette and loops infinitely (`loop=0`). GIF timing is quantized to 30/40 ms frame delays: one loop is 11.51 seconds versus the source video stream's 11.50 seconds. File size: 6,461,384 bytes. SHA-256: `1195944ec8b11354544e3fb0c0fb49c71234397f8e56f37c649ffba1e72e6e49`.
-
-Conversion command:
+GIF conversion command:
 
 ```bash
 ffmpeg -hide_banner -loglevel error -y -i assets/video-example.mp4 \
@@ -109,4 +101,12 @@ ffmpeg -hide_banner -loglevel error -y -i assets/video-example.mp4 \
   -an -vsync 0 -loop 0 docs/media/live-cli-demo.gif
 ```
 
-Verification: Pillow decoded all 345 frames and checked dimensions, total delay and infinite-loop metadata. FFmpeg decoded the GIF with `-xerror` without errors. A Chromium smoke opened the GIF without clicking play and observed three changing screenshots; the full CLI remained visible. The source SHA-256 was unchanged. No runtime implementation changed; no new model/harness run is claimed.
+The five social exports fit and pad the entire new CLI frame, retain 368 frames at 30 fps and omit audio. Matching covers are extracted at 4 seconds. English captions and talking points describe this system-health session, not the first recording's model-timeout screen. Portrait exports make the wide terminal text smaller than landscape. Assets and their measured manifest remain under ignored `docs/media/social/`; no social login, upload or posting was performed.
+
+The original first recording's derivatives have been overwritten in the current checkout and posting ZIP. Earlier Git commits still contain the first public GIF, MP4 and poster. No force-push/history rewrite was authorized or performed. Archived standalone/composed media is unrelated to the supplied recordings and is not in the active posting pack.
+
+`npm audit --omit=dev` was previously unavailable because this repository has no lockfile; `package.json` declares no dependencies. No dependency or runtime implementation changes are part of this media replacement.
+
+Replacement media verification: FFmpeg fully decoded the new source, public MP4, GIF and five social MP4 exports with `-xerror`, without errors. All MP4s have 368 frames at 30 fps; every derivative omits audio. All 368 decoded public MP4 frame pixel hashes match the new source in order. Pillow decoded the 368-frame GIF and checked dimensions, timing and infinite-loop metadata; all six PNGs decoded successfully. A Chromium smoke showed the new 1486×754 GIF animating automatically with three changing screenshots. The source SHA-256 remained unchanged.
+
+The final local ZIP passed CRC verification with exactly 14 members, each byte-matching its current file, including the updated manifest and English documents. All relative README/provenance links resolved. No first-recording derivative is included in the current posting pack.
