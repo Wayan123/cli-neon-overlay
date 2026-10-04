@@ -1,0 +1,53 @@
+project: cli-neon-overlay
+track: quick-flow
+reference: ../video-assets/video-overlay.mp4
+workflows:
+  research:
+    status: complete
+    artifact: docs/bmad/design.md
+  spec:
+    status: complete
+    artifact: docs/bmad/design.md
+  sprint_plan:
+    status: complete
+    readiness: PASS
+    artifact: docs/bmad/implementation-plan.md
+  build:
+    status: complete
+    artifact: src/extension.ts
+  code_review:
+    status: complete
+    artifact: docs/operations/verification.md
+  walkthrough:
+    status: complete
+    artifact: artifacts/native-smoke.json
+    visual_limit: ANSI PTY reconstruction, not Windows desktop pixels
+iterations:
+  multi_animal:
+    date: "2026-10-04"
+    version: "1.1.0"
+    track: quick-flow
+    readiness: PASS
+    research:
+      status: complete
+      artifact: docs/bmad/multi-animal-spec.md
+    spec:
+      status: complete
+      artifact: docs/bmad/multi-animal-spec.md
+    sprint_plan:
+      status: complete
+      artifact: docs/bmad/multi-animal-plan.md
+    build:
+      status: complete
+      artifact: src/renderer.mjs
+    code_review:
+      status: complete
+      artifact: docs/operations/multi-animal-verification.md
+    walkthrough:
+      status: complete
+      artifact: artifacts/multi-animal-smoke.json
+      media: docs/media/demo.mp4
+      visual_limit: ANSI PTY reconstruction, not desktop pixels
+    delivery:
+      status: pending
+      repository: https://github.com/Wayan123/cli-neon-overlay.git

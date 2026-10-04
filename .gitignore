@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.cache/
+.venv/
+__pycache__/
+.DS_Store
+.superpowers/
+.worktrees/

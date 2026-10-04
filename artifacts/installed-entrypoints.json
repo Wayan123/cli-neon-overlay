@@ -1,0 +1,14 @@
+{
+  "omp": {
+    "installed_entrypoint_demo": true,
+    "installed_entrypoint_off_clean": true,
+    "help_visible": true,
+    "status_visible": true
+  },
+  "pi": {
+    "installed_entrypoint_demo": true,
+    "installed_entrypoint_off_clean": true,
+    "help_visible": true,
+    "status_visible": true
+  }
+}

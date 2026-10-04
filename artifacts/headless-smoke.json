@@ -1,0 +1,12 @@
+{
+  "omp": {
+    "rpc_responds": true,
+    "no_animation_ansi": true,
+    "no_braille": true
+  },
+  "pi": {
+    "rpc_responds": true,
+    "no_animation_ansi": true,
+    "no_braille": true
+  }
+}

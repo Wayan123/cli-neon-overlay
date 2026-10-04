@@ -1,0 +1,32 @@
+                                                                                                              
+ ▀▀█  v1.0.0                                                                                                  
+ █▀ █ escape interrupt · ctrl+c/ctrl+d clear/exit · / commands · ! bash · ctrl+o more                         
+ Press ctrl+o to show full startup help and loaded resources.                                                 
+                                                     ⠠⡀                                                       
+ Pi can explain its own features and look up its docs.⠱⡀sk it ho⡠ to use or extend Pi.                        
+                                                    ⠑⡄ ⠙⢄ ⣀  ⢀⡤⠊                                              
+[Extensions]                                         ⠉⠒⠤⣀⡏⡸⢉⠎⠁⣀⡠⠤⠒                                            
+  pi.ts                                           ⢀⣀⠤⠬⠭⣒⡲⠓⡷⡾⠮⣉⡀                                               
+                                                     ⡤⠤⠤⢯⣳⢷⣝⠉⠑⠒⢄                                              
+                                                    ⠔⠁   ⠈⠁ ⠉⢖  ⠁                                             
+ Neon: auto, Braille, 17-second demo requested. Animation pau⠈⢆s while typing or another component owns       
+ focus.                                                                                                       
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+                                                                                                              
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                              
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+~/AI/cli-neon-overlay                                                                                         
+$0.000 (sub) 0.0%/272k (auto)                                                (openai-codex) gpt-6.1-sol • high

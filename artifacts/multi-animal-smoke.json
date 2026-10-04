@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-04",
+  "versions": {
+    "node": "v22.22.1",
+    "omp": "18.6.0",
+    "pi": "1.0.0",
+    "pyte": "0.8.2"
+  },
+  "suite": {
+    "command": "npm test",
+    "passed": 19,
+    "failed": 0
+  },
+  "native": {
+    "omp": {
+      "installed_wrapper_loaded": true,
+      "auto_idle_hidden": true,
+      "list": true,
+      "empty_help": true,
+      "off_selection_stays_off": true,
+      "cat_visible": true,
+      "animated_frames_change": true,
+      "style_switches": true,
+      "next_cycles": true,
+      "invalid_preserves_state": true,
+      "all_species_active_switch": true,
+      "still_freezes": true,
+      "typing_preserved_hides": true,
+      "typing_recovers_still": true,
+      "dialog_hides": true,
+      "dialog_recovers": true,
+      "tiny_hides": true,
+      "ascii": true,
+      "resize_recovers_with_document_space": true,
+      "mono": true,
+      "reset_cleans": true,
+      "repeat_demo": true,
+      "off_cleans": true,
+      "process_alive": true,
+      "acknowledgement_not_stale_pause": true,
+      "demo_expires_to_off": true
+    },
+    "pi": {
+      "installed_wrapper_loaded": true,
+      "auto_idle_hidden": true,
+      "list": true,
+      "empty_help": true,
+      "off_selection_stays_off": true,
+      "cat_visible": true,
+      "animated_frames_change": true,
+      "style_switches": true,
+      "next_cycles": true,
+      "invalid_preserves_state": true,
+      "all_species_active_switch": true,
+      "still_freezes": true,
+      "typing_preserved_hides": true,
+      "typing_recovers_still": true,
+      "dialog_hides": true,
+      "dialog_recovers": true,
+      "tiny_hides": true,
+      "resize_recovers": true,
+      "ascii": true,
+      "mono": true,
+      "reset_cleans": true,
+      "repeat_demo": true,
+      "off_cleans": true,
+      "process_alive": true,
+      "acknowledgement_not_stale_pause": true,
+      "demo_expires_to_off": true,
+      "reload_cleans_and_restarts": true
+    }
+  },
+  "standalone": {
+    "n": true,
+    "p": true,
+    "t": true,
+    "s": true,
+    "m": true,
+    "l": true,
+    "a": true,
+    "still_freezes_screen": true,
+    "tiny_hides": true,
+    "resize_recovers": true,
+    "exit_zero": true,
+    "raw_restored": true,
+    "screen_restored": true,
+    "escape_ctrlc_restore": true,
+    "signals_restore": true
+  },
+  "installer": {
+    "dry_run_no_writes": true,
+    "install_both_repeat": true,
+    "collision_preserves_both": true,
+    "dangling_symlink_refused": true,
+    "ancestor_symlink_refused": true,
+    "moved_checkout_updates_file_url": true,
+    "space_path_native_load_both": true,
+    "uninstall_repeat_only_owned": true
+  },
+  "reduced_motion": {
+    "omp": true,
+    "pi": true
+  },
+  "headless": {
+    "omp": {
+      "rpc_responds": true,
+      "plain_output": true
+    },
+    "pi": {
+      "rpc_responds": true,
+      "plain_output": true
+    }
+  },
+  "media": {
+    "source": "actual standalone PTY ANSI output, reconstructed with pyte and Pillow/Unifont",
+    "command": "node scripts/demo.mjs --size large --position center",
+    "keys_at_seconds": {
+      "3": "n",
+      "6": "nt",
+      "9": "n",
+      "12": "a",
+      "15": "tm"
+    },
+    "frames": 180,
+    "fps": 10,
+    "duration_seconds": 18,
+    "width": 832,
+    "height": 560,
+    "codec": "h264",
+    "audio": false
+  }
+}
