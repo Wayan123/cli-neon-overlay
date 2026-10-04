@@ -1,5 +1,10 @@
 # Changelog
 
+## README GIF revision
+
+- Replaced the README's linked MP4 and static poster with an inline, infinitely looping GIF converted from the same supplied actual CLI recording.
+- Preserved the full terminal frame and complete sequence; left social MP4 exports unchanged.
+
 
 ## Demo media correction
 

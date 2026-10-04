@@ -93,3 +93,20 @@ The local social pack uses five proportional scale-and-pad exports, matching fra
 Media correction checks: FFmpeg decoded the public video and all five social exports with `-xerror`, without errors. Each contains 345 video frames at 30 fps and no audio; the padded exports run 11.50 seconds. All 345 public decoded frame pixel hashes match the source in order (the remux changes the initial timestamp offset). The six PNGs decoded successfully, relative README/provenance links resolved, and the ZIP passed CRC verification with exactly 14 current members. The source SHA-256 remained unchanged.
 
 The existing suite passed 24/24 again for this media-only correction; no implementation files changed and no new live harness/model run is claimed. `npm audit --omit=dev` could not run because the repository has no lockfile. `package.json` declares no dependencies; no lockfile or dependency installation was added just to manufacture an audit result.
+
+## Inline README GIF revision
+
+The README now embeds `docs/media/live-cli-demo.gif` as a Markdown image, replacing its MP4 link and static poster. The earlier MP4 and poster remain historical product media; the social MP4 exports are unchanged.
+
+The GIF comes directly from the same supplied `assets/video-example.mp4`. It preserves all 345 frames at 1480×762 without cropping or scaling, uses a 256-color palette and loops infinitely (`loop=0`). GIF timing is quantized to 30/40 ms frame delays: one loop is 11.51 seconds versus the source video stream's 11.50 seconds. File size: 6,461,384 bytes. SHA-256: `1195944ec8b11354544e3fb0c0fb49c71234397f8e56f37c649ffba1e72e6e49`.
+
+Conversion command:
+
+```bash
+ffmpeg -hide_banner -loglevel error -y -i assets/video-example.mp4 \
+  -filter_complex_threads 1 \
+  -filter_complex "[0:v]setpts=PTS-STARTPTS,split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle" \
+  -an -vsync 0 -loop 0 docs/media/live-cli-demo.gif
+```
+
+Verification: Pillow decoded all 345 frames and checked dimensions, total delay and infinite-loop metadata. FFmpeg decoded the GIF with `-xerror` without errors. A Chromium smoke opened the GIF without clicking play and observed three changing screenshots; the full CLI remained visible. The source SHA-256 was unchanged. No runtime implementation changed; no new model/harness run is claimed.

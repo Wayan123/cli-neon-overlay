@@ -6,9 +6,9 @@ Let a wireframe cat blink, a spider wander, a fox sway its tail, or a jellyfish 
 
 ## Watch the actual CLI recording
 
-[![Spider overlay running over the real CLI in the supplied recording](docs/media/live-cli-poster.png)](docs/media/live-cli-demo.mp4)
+![Spider overlay running over the real CLI in the supplied recording](docs/media/live-cli-demo.gif)
 
-[Watch or download the actual CLI demo](docs/media/live-cli-demo.mp4). This uses the supplied `assets/video-example.mp4`: an 11.52-second desktop recording with the spider animated over a real coding CLI, not the separate standalone renderer or a reconstructed terminal. The full 1480×762 frame is preserved; the published copy removes audio without re-encoding the video.
+The looping GIF above plays inline when you open this README. It comes from the supplied `assets/video-example.mp4`, showing the spider animated over a real coding CLI, not the separate standalone renderer or a reconstructed terminal. The full 1480×762 frame and complete video sequence are preserved; GIF conversion uses a 256-color palette and has no audio.
 
 This clip shows the spider, not every animal or harness. Existing project text, paths and a model-timeout message remain visible as recorded; they are not rewritten or presented as a successful coding task. English descriptions accompany the original mixed-language CLI capture. The commands below let you run the effect yourself.
 
