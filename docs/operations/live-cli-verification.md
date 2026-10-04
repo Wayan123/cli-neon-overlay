@@ -79,3 +79,17 @@ No manual install/update command was issued. Disposable HOME/XDG locations did n
 Observed checks and boundaries are also recorded in [`artifacts/live-cli-smoke.json`](../../artifacts/live-cli-smoke.json). No language server was available for the `.mjs` reference check; no LSP verification is claimed.
 
 The local social kit remains excluded from Git delivery. No social login, upload, posting, public stream or external clip submission was performed.
+
+## Supplied real CLI recording: demo correction
+
+The revised primary README demo comes from the user-supplied `assets/video-example.mp4`, not the standalone renderer or the earlier reconstructed terminal captures. The source is H.264, 1480×762, 30 fps, with a container duration of 11.52 seconds and an AAC audio track. SHA-256: `cae3b0be063b5875f9382ad406b0774632ade30bcd426af680bbf4b4e8561b25`.
+
+The screen shows a spider animated over actual CLI session text. It includes mixed-language project text, local paths and a model-timeout message. It does not establish the runtime version, a completed model task, other species or other harness integrations. This supplied footage is not a new rerun of the runtime verification above.
+
+`docs/media/live-cli-demo.mp4` is a silent remux of the original video stream with faststart: no scaling, cropping, reconstructed UI or video re-encoding. `docs/media/live-cli-poster.png` is the complete source frame at 4 seconds. The original supplied file remains local and unchanged; only the silent product demo and poster are intended for Git delivery.
+
+The local social pack uses five proportional scale-and-pad exports, matching frame covers and English captions for the spider shown. Padding deliberately preserves the entire CLI; portrait text is smaller than landscape. The audio is omitted rather than publishing unreviewed sound. These assets and their measured provenance manifest stay under ignored `docs/media/social/`. Historical composed exports remain in ignored `.cache/legacy-social/` and are not promoted or included in the revised ZIP. No social login, upload or post was performed.
+
+Media correction checks: FFmpeg decoded the public video and all five social exports with `-xerror`, without errors. Each contains 345 video frames at 30 fps and no audio; the padded exports run 11.50 seconds. All 345 public decoded frame pixel hashes match the source in order (the remux changes the initial timestamp offset). The six PNGs decoded successfully, relative README/provenance links resolved, and the ZIP passed CRC verification with exactly 14 current members. The source SHA-256 remained unchanged.
+
+The existing suite passed 24/24 again for this media-only correction; no implementation files changed and no new live harness/model run is claimed. `npm audit --omit=dev` could not run because the repository has no lockfile. `package.json` declares no dependencies; no lockfile or dependency installation was added just to manufacture an audit result.

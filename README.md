@@ -4,6 +4,14 @@ A little wildlife for your coding terminal.
 
 Let a wireframe cat blink, a spider wander, a fox sway its tail, or a jellyfish drift while you code. Use a **native overlay in OMP/Pi**, or a **separate companion pane alongside Codex, Claude Code, and other terminal CLIs**. The standalone preview lets you try the animals before installing anything.
 
+## Watch the actual CLI recording
+
+[![Spider overlay running over the real CLI in the supplied recording](docs/media/live-cli-poster.png)](docs/media/live-cli-demo.mp4)
+
+[Watch or download the actual CLI demo](docs/media/live-cli-demo.mp4). This uses the supplied `assets/video-example.mp4`: an 11.52-second desktop recording with the spider animated over a real coding CLI, not the separate standalone renderer or a reconstructed terminal. The full 1480×762 frame is preserved; the published copy removes audio without re-encoding the video.
+
+This clip shows the spider, not every animal or harness. Existing project text, paths and a model-timeout message remain visible as recorded; they are not rewritten or presented as a successful coding task. English descriptions accompany the original mixed-language CLI capture. The commands below let you run the effect yourself.
+
 ## Live demo inside OMP or Pi
 
 Run the actual coding CLI with the native extension from this checkout:
@@ -93,7 +101,7 @@ The revised live runs also exercised OpenCode 1.15.3 and Gemini CLI 0.43.0, alon
 
 ### Static terminal captures
 
-These earlier images reconstruct real terminal output; they are reference captures, not a substitute for running the commands above. The current demo is the live CLI session.
+These earlier images reconstruct terminal output and are kept only as additional species references. The primary video above is the supplied actual CLI recording, not these reconstructions or the old standalone montage.
 
 ![Four original wireframe companions in the standalone terminal preview](docs/media/companions.png)
 

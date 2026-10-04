@@ -10,6 +10,7 @@ __pycache__/
 .DS_Store
 .superpowers/
 .worktrees/
+*:Zone.Identifier
 
 # Local social posting material; not part of the distributed product.
 docs/media/social/

@@ -1,5 +1,12 @@
 # Changelog
 
+
+## Demo media correction
+
+- Used the supplied `assets/video-example.mp4` as the primary README video, preserving its full actual CLI frame and video stream while removing audio.
+- Added a poster extracted from that recording; stopped presenting reconstructed standalone media as the primary demo.
+- Rebuilt the local social pack from the same footage with full-frame padded exports and English captions specific to the spider clip; social files remain local-only.
+
 ## 1.2.1
 
 - Made direct live CLI commands the primary demo: native OMP/Pi first, then the live standalone preview and tmux companion panes.
