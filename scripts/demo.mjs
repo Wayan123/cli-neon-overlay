@@ -1,11 +1,14 @@
-import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, DEFAULT_SETTINGS } from '../src/settings.mjs';
+import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, STYLES, TETHERS, FRAME_RATES, DEFAULT_SETTINGS } from '../src/settings.mjs';
 
 const choices = {
   animal: ANIMALS.map(({ id }) => id),
+  style: STYLES,
   theme: Object.keys(THEMES),
   size: Object.keys(SIZES),
   motion: Object.keys(MOTIONS),
   position: POSITIONS,
+  tether: TETHERS,
+  fps: FRAME_RATES,
 };
 const HELP = [
   'Usage: node scripts/demo.mjs [options]',
@@ -19,12 +22,12 @@ const HELP = [
     `  --${key.padEnd(22)}${values.join('|')} (default: ${DEFAULT_SETTINGS[key]})`),
   '  --ascii                 Use ASCII instead of Braille',
   '',
-  'Keys: n/p animal, t theme, s size, m motion, l position, a glyphs.',
+  'Keys: n/p animal, y style, t theme, s size, m motion, l position, w tether, f fps, a glyphs.',
   'Exit: q, Escape, or Ctrl+C.',
   '',
   'Examples:',
-  '  node scripts/demo.mjs --animal cat --theme sunset',
-  '  node scripts/demo.mjs --animal jellyfish --motion still --ascii',
+  '  node scripts/demo.mjs --animal mite --style fuzzy --theme lime',
+  '  node scripts/demo.mjs --animal octopus --style orb --fps 30',
 ].join('\n');
 
 function parseOptions(args) {
@@ -99,11 +102,17 @@ function preview(renderAnimal, settings) {
       }
       if (key === 'n') cycle('animal');
       else if (key === 'p') cycle('animal', -1);
+      else if (key === 'y') cycle('style');
       else if (key === 't') cycle('theme');
       else if (key === 's') cycle('size');
       else if (key === 'm') cycle('motion');
       else if (key === 'l') cycle('position');
-      else if (key === 'a') settings.ascii = !settings.ascii;
+      else if (key === 'w') cycle('tether');
+      else if (key === 'f') {
+        cycle('fps');
+        clearInterval(timer);
+        timer = setInterval(paint, 1000 / Number(settings.fps));
+      } else if (key === 'a') settings.ascii = !settings.ascii;
     }
     paint();
   };
@@ -118,7 +127,7 @@ function preview(renderAnimal, settings) {
         if (row >= 1 && row <= rows) frame += `\x1b[${row};1H\x1b[0m${value.slice(0, width)}`;
       };
       const animal = ANIMALS.find(({ id }) => id === settings.animal);
-      const status = `${settings.theme} | ${settings.size} | ${settings.motion} | ${settings.position} | ${settings.ascii ? 'ASCII' : 'Braille'}`;
+      const status = `${settings.style} | ${settings.theme} | ${settings.size} | ${settings.motion} | ${settings.position} | tether ${settings.tether} | ${settings.fps} fps | ${settings.ascii ? 'ASCII' : 'Braille'}`;
       if (columns < 40 || rows < 14) {
         text(1, `${animal.label} preview`);
         text(2, 'Resize to at least 40 columns x 14 rows.');
@@ -139,8 +148,8 @@ function preview(renderAnimal, settings) {
           frame += `\x1b[${cell.y + 4};${cell.x + 1}H${cell.color}${cell.text}`;
         }
         if (cells.length === 0) text(4, 'Not enough room for this companion. Resize to continue.');
-        text(rows - 2, 'n/p: animal | t: theme | s: size');
-        text(rows - 1, 'm: motion | l: position | a: glyphs');
+        text(rows - 2, 'n/p: animal | y: style | t: theme | s: size');
+        text(rows - 1, 'm: motion | l: position | w: tether | f: fps | a: glyphs');
         text(rows, 'q/Esc/Ctrl+C: exit | Live standalone preview');
       }
       process.stdout.write(`${frame}\x1b[0m`);
@@ -168,7 +177,7 @@ function preview(renderAnimal, settings) {
     process.stdin.once('end', stop);
     process.stdout.on('resize', paint);
     process.stdin.resume();
-    timer = setInterval(paint, 1000 / 15);
+    timer = setInterval(paint, 1000 / Number(settings.fps));
     paint();
   } catch (error) {
     fail(error);

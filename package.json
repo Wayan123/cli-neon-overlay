@@ -1,10 +1,10 @@
 {
   "name": "cli-neon-overlay",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "private": true,
   "type": "module",
   "license": "MIT",
-  "description": "Wireframe animal companions: native OMP/Pi overlays and an isolated companion pane for Codex, Claude Code and other terminal CLIs",
+  "description": "Lively neon animal companions: native OMP/Pi overlays and an isolated companion pane for Codex, Claude Code and other terminal CLIs",
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "demo": "node scripts/demo.mjs",

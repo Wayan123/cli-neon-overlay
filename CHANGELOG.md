@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0
+
+- Added `lively` motion as the default: animals perch, wind up, dart with an overshoot and land with a squash, with gaze and limb drag following the flight. Motion stays stateless and continuous (at most about 5 cells per frame at 30 fps); `normal`, `slow` and `still` are unchanged.
+- Added `wireframe`, `orb` and `fuzzy` styles, `lime` and `magenta` themes, and a dashed silk tether (`/neon tether on|off`).
+- Added original `mite`, `urchin`, `octopus` and `crab` animals.
+- Pi lively animals now perch beside visible word ends above the editor; OMP falls back to deterministic wandering perches.
+- Added `/neon fps 15|30`; verified 15.3 and 30.3 distinct overlay frames per second in real OMP 18.6.1 and Pi 1.0.3 sessions.
+- Standalone preview and companion panes gained style, tether and fps options and keys.
+- Added a README showcase GIF made from real OMP pane captures.
+
 ## Replacement source recording
 
 - Replaced the README GIF, public MP4 and poster with derivatives of the new supplied CLI recording, removing the first recording's server-launch screen from current demo files.

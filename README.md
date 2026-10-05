@@ -2,9 +2,13 @@
 
 A little wildlife for your coding terminal.
 
-Let a wireframe cat blink, a spider wander, a fox sway its tail, or a jellyfish drift while you code. Use a **native overlay in OMP/Pi**, or a **separate companion pane alongside Codex, Claude Code, and other terminal CLIs**. The standalone preview lets you try the animals before installing anything.
+Let a fuzzy mite hop between words, an octopus wave its tentacles, a crab snap its claws, or a wireframe spider dart across the screen while you code. Eight animals and three looks—`wireframe`, filled `orb`, and `fuzzy`—perch, wind up, dart and land with a squash. Use a **native overlay in OMP/Pi**, or a **separate companion pane alongside Codex, Claude Code, and other terminal CLIs**. The standalone preview lets you try them before installing anything.
 
-## Watch the actual CLI recording
+![Mite, octopus, crab and spider darting across a real OMP session in fuzzy, orb and wireframe styles](docs/media/lively-showcase.gif)
+
+The showcase above is rendered from real OMP 18.6.1 pane captures (`/neon on`, 30 fps) and redrawn dot-for-dot; it is not a mock-up. Methods, measurements and limits are in [the 1.3.0 verification report](docs/operations/lively-verification.md).
+
+## Watch the original CLI recording
 
 ![Spider overlay running over the real CLI in the supplied recording](docs/media/live-cli-demo.gif)
 
@@ -28,10 +32,11 @@ Then enter these commands in the CLI itself:
 
 ```text
 /neon list
-/neon demo cat
-/neon demo fox
-/neon demo jellyfish
-/neon ascii
+/neon demo mite
+/neon style fuzzy
+/neon theme lime
+/neon demo octopus
+/neon fps 30
 /neon on
 /neon next
 /neon off
@@ -49,13 +54,14 @@ npm run demo -- --animal cat
 
 This command runs the same animal renderer directly in your terminal. It is an interactive standalone preview, not video playback and not proof of a native harness integration.
 
-Press `n` / `p` to browse the animals, `t` for colors, `s` for size, `m` for motion, `l` for position, and `a` for ASCII/Braille. Quit with `q`, Escape, or Ctrl+C. The preview restores the cursor, alternate screen, and terminal input mode when it closes.
+Press `n` / `p` to browse the animals, `y` for style, `t` for colors, `s` for size, `m` for motion, `l` for position, `w` for the silk tether, `f` for 15/30 fps, and `a` for ASCII/Braille. Quit with `q`, Escape, or Ctrl+C. The preview restores the cursor, alternate screen, and terminal input mode when it closes.
 
 ```bash
 npm run demo -- --list
 npm run demo -- --help
+npm run demo -- --animal mite --style fuzzy --theme lime
+npm run demo -- --animal crab --style orb --fps 30
 npm run demo -- --animal jellyfish --theme sunset --motion slow --position right
-npm run demo -- --animal fox --ascii --size large
 ```
 
 ## Run alongside Codex, Claude Code, or another CLI
@@ -80,7 +86,7 @@ node /path/to/cli-neon-overlay/scripts/companion.mjs --animal cat -- codex
 
 Replace the example paths with your checkout/project locations. The harness keeps that working directory and your existing login/settings. There is no Codex/Claude extension to install, and the launcher does not change their configuration, permissions or first-run prompts.
 
-- Keyboard focus starts in the harness. **Ctrl+B, then Left/Right** switches panes; use `n/p`, `t`, `s`, `m`, `l`, `a` in the animal pane. Ctrl+B twice sends a literal Ctrl+B to the harness.
+- Keyboard focus starts in the harness. **Ctrl+B, then Left/Right** switches panes; use `n/p`, `y`, `t`, `s`, `m`, `l`, `w`, `f`, `a` in the animal pane. Ctrl+B twice sends a literal Ctrl+B to the harness.
 - Exit the harness normally to close the companion; its exit code is preserved. **Ctrl+B, then d** ends this owned session and forcibly stops any remaining live host process group. Finish or save your work before detaching; do not use detach if you want the agent to continue.
 - Each launch owns a private tmux socket. Existing tmux sessions and configuration are not modified. It can run from inside tmux too; the outer session's prefix may require Ctrl+B twice.
 - Minimum starting size: 82 columns × 16 rows; 120 × 30 is more comfortable. tmux handles resizing; a cramped animal pane shows the preview's resize message.
@@ -125,9 +131,9 @@ Restart OMP; in Pi, run `/reload` or restart. Then try:
 
 ```text
 /neon list
-/neon demo cat
-/neon animal jellyfish
-/neon theme sunset
+/neon demo crab
+/neon style orb
+/neon theme magenta
 /neon motion slow
 /neon on
 ```
@@ -142,17 +148,24 @@ The default `auto` mode shows your companion only while the main agent works. Ch
 | `cat` | Pointed ears, whiskers, blinking eyes and a swinging tail | `/neon demo cat` |
 | `fox` | Long muzzle, alert ears and a bushy swaying tail | `/neon demo fox` |
 | `jellyfish` | A pulsing bell and flowing trailing tentacles | `/neon demo jellyfish` |
+| `mite` | Round body, tripod-gait legs with ball tips and big curious eyes | `/neon demo mite` |
+| `urchin` | Spiny orb whose radiating spines pulse and slowly turn | `/neon demo urchin` |
+| `octopus` | Round mantle and eight waving, curling tentacles | `/neon demo octopus` |
+| `crab` | Wide shell, eye stalks, scuttling legs and snapping claws | `/neon demo crab` |
 
 ### Tune the view
 
 | Command | Choices / effect |
 | --- | --- |
-| `/neon animal cat` | Select `spider`, `cat`, `fox`, or `jellyfish`; `/neon cat` also works |
+| `/neon animal cat` | Select any animal above; `/neon cat` also works |
 | `/neon next` | Cycle to the next animal |
-| `/neon theme neon` | `neon` cyan/magenta, `sunset` amber/coral, `mono` terminal foreground |
+| `/neon style orb` | `wireframe` outline, `orb` filled body with ball-tipped limbs, `fuzzy` filled body with a flickering fur fringe |
+| `/neon theme lime` | `neon` cyan/magenta, `sunset` amber/coral, `lime` green/pink, `magenta` pink/cyan, `mono` terminal foreground |
 | `/neon size medium` | `small`, `medium`, `large`; fitted down to available space |
-| `/neon motion slow` | `still`, `slow`, `normal`; still freezes pose and position |
-| `/neon position right` | `roam`, `left`, `center`, `right` in the safe upper area |
+| `/neon motion lively` | `lively` (default) perches, winds up, darts with an overshoot and lands with a squash; `normal` slow drift; `slow`; `still` freezes pose and position |
+| `/neon position right` | `roam`, `left`, `center`, `right` in the safe upper area; fixed positions do not dart |
+| `/neon tether off` | `on` draws a short dashed silk line from the last perch during a dart; `off` hides it |
+| `/neon fps 30` | `15` (default) or `30` updates per second |
 | `/neon ascii` / `/neon braille` | Real line-glyph fallback / subcell detail |
 | `/neon auto` / `/neon on` / `/neon off` | Agent activity only / always / remove overlay |
 | `/neon demo [animal]` | Preview the current or named animal for 17 seconds |
@@ -190,7 +203,8 @@ Restart/reload afterward. Keep the checkout while installed: the wrapper referen
 - To disable the native overlay before launch: `CLI_NEON_REDUCED_MOTION=1 omp` or `CLI_NEON_REDUCED_MOTION=1 pi`. For a motionless standalone preview: `npm run demo -- --motion still`.
 - Braille requires a font with U+2800–U+28FF support. If you see boxes, use ASCII. Choose `mono` for a palette that follows your terminal foreground; bright palettes work best on dark backgrounds.
 - Sparse native cells temporarily cover characters beneath the animal; they do not cover a rectangular panel and are not alpha transparency. OMP holds scrollback commits while native overlays are visible, so `auto` or `off` is preferable during long output.
-- Target updates are about 15 fps with a 128-cell ceiling. No audio, model calls, or extension network requests. Pixel glow and video-style text magnification are not simulated.
+- Updates run at 15 fps by default or 30 fps with `/neon fps 30`, with a 128-cell ceiling. A frame renders in about 0.05–0.15 ms on average (worst observed 1.6 ms) on the test machine. No audio, model calls, or extension network requests. Pixel glow, gradients and soft fur are not simulated; `fuzzy` approximates fur with Braille dots.
+- In Pi, lively animals perch beside the end of a visible word above the editor; rows containing non-ASCII text are skipped because their cell columns are unknown. OMP does not expose its rendered lines, so animals there perch at deterministic wandering points instead.
 
 ## Hack on the menagerie
 
@@ -198,9 +212,9 @@ Restart/reload afterward. Keep the checkout while installed: the wrapper referen
 npm test
 ```
 
-`src/settings.mjs` owns the catalog and validated commands. `src/renderer.mjs` owns original procedural animal geometry and shared rasterization. `src/extension.ts` owns native lifecycle/focus safety; the files in `extensions/` only select the harness. `scripts/demo.mjs` runs the same renderer outside a harness, `src/companion.mjs` manages isolated tmux sessions for `scripts/companion.mjs`, and `scripts/install.mjs` manages the marked native wrappers.
+`src/settings.mjs` owns the catalog and validated commands. `src/renderer.mjs` owns original procedural animal geometry, lively flight, styles and shared rasterization. `src/perch.mjs` extracts Pi perch targets from rendered lines. `src/extension.ts` owns native lifecycle/focus safety; the files in `extensions/` only select the harness. `scripts/demo.mjs` runs the same renderer outside a harness, `src/companion.mjs` manages isolated tmux sessions for `scripts/companion.mjs`, and `scripts/install.mjs` manages the marked native wrappers.
 
-To add a species, add its descriptor to `ANIMALS`, implement its geometry in the renderer, and extend the boundary/ASCII/animation checks. Catalog-driven commands and the standalone animal selector pick it up without a new lifecycle branch. Do not copy third-party sprites without a compatible license.
+To add a species, add its descriptor to `ANIMALS`, implement its geometry in the renderer (accepting the `pose` gaze/drag offsets and adding `fill` polygons for filled styles), and extend the boundary/ASCII/animation checks. Catalog-driven commands and the standalone animal selector pick it up without a new lifecycle branch. Do not copy third-party sprites without a compatible license.
 
 ## Design, research and proof
 

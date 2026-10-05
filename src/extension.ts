@@ -1,5 +1,6 @@
 import process from "node:process";
-import { renderAnimal } from "./renderer.mjs";
+import { HOP_SECONDS, renderAnimal } from "./renderer.mjs";
+import { perchCandidates, pickPerch } from "./perch.mjs";
 import { ANIMALS, DEFAULT_SETTINGS, HELP, parseNeonCommand } from "./settings.mjs";
 
 type HarnessKind = "omp" | "pi";
@@ -66,7 +67,7 @@ interface PoolCell {
 }
 
 const WIDGET_KEY = "cli-neon-overlay";
-const FRAME_MS = 67;
+const FRAME_MS: Record<string, number> = { "15": 67, "30": 33 };
 const MAX_CELLS = 128;
 
 const HEADLESS_MODE = (() => {
@@ -106,6 +107,8 @@ class NeonSession {
   private pausedUntil = 0;
   private failure: string | undefined;
   private documentSafeRows = 0;
+  private visibleLines: readonly string[] = [];
+  private perches = new Map<number, { x: number; y: number } | undefined>();
 
   constructor(private readonly ctx: Context, private readonly kind: HarnessKind) {}
 
@@ -172,6 +175,7 @@ class NeonSession {
         ? ANIMALS[(ANIMALS.findIndex((animal) => animal.id === this.settings.animal) + 1) % ANIMALS.length].id
         : command.value;
       Object.assign(this.settings, { [command.key]: value });
+      if (command.key === "fps") this.stopAnimation();
       this.setAllHidden();
     } else if (command.type === "demo") {
       this.stopAnimation();
@@ -206,7 +210,8 @@ class NeonSession {
     // Widget factories can be lazy; the first timer belongs to the acquired TUI only.
     if (!this.tui || this.timer !== undefined) return;
     this.startedAt = Date.now();
-    this.timer = setInterval(() => this.safely(() => this.frame()), FRAME_MS);
+    this.perches.clear();
+    this.timer = setInterval(() => this.safely(() => this.frame()), FRAME_MS[this.settings.fps] ?? FRAME_MS["15"]);
   }
 
   private safeHeight(columns: number, rows: number, refreshDocument = false): number {
@@ -220,9 +225,11 @@ class NeonSession {
     }
     if (refreshDocument) {
       this.documentSafeRows = 0;
+      this.visibleLines = [];
       const document = tui.render?.(columns);
       if (document) {
         const top = Math.max(0, document.length - rows);
+        this.visibleLines = document.slice(top);
         for (let row = document.length - 1; row >= top; row--) {
           if (document[row].includes("\x1b_pi:c\x07")) {
             this.documentSafeRows = Math.max(0, row - top - 2);
@@ -258,7 +265,10 @@ class NeonSession {
       this.setAllHidden();
       return;
     }
-    const cells = renderAnimal({ columns, rows: safeRows * 2, elapsedMs: now - this.startedAt, ...this.settings });
+    const cells = renderAnimal({
+      columns, rows: safeRows * 2, elapsedMs: now - this.startedAt, ...this.settings,
+      perch: this.visibleLines.length ? (hop: number) => this.perchFor(hop, safeRows, columns) : undefined,
+    });
     this.preservingFocus(() => {
       const count = Math.min(cells.length, MAX_CELLS);
       for (let i = 0; i < count; i++) {
@@ -277,6 +287,16 @@ class NeonSession {
       for (let i = count; i < this.pool.length; i++) this.hideCell(this.pool[i]);
     });
     tui.requestRender();
+  }
+
+  /** Pi perches on the end of a visible word; cached per hop so scrolling text cannot teleport it. */
+  private perchFor(hop: number, safeRows: number, columns: number): { x: number; y: number } | undefined {
+    if (!this.perches.has(hop)) {
+      this.perches.set(hop, pickPerch(perchCandidates(this.visibleLines, safeRows, columns), hop));
+      const elapsedHop = Math.floor((Date.now() - this.startedAt) / 1000 / HOP_SECONDS);
+      for (const key of this.perches.keys()) if (key < elapsedHop - 2) this.perches.delete(key);
+    }
+    return this.perches.get(hop);
   }
 
   private createCell(): PoolCell {
@@ -348,8 +368,8 @@ class NeonSession {
   }
 
   private configuration(): string {
-    const { animal, theme, size, motion, position, ascii } = this.settings;
-    return `Neon: ${this.mode}, ${animal}, ${theme}, ${size}, ${motion}, ${position}, ${ascii ? "ASCII" : "Braille"}`;
+    const { animal, theme, size, motion, position, style, tether, fps, ascii } = this.settings;
+    return `Neon: ${this.mode}, ${animal}, ${style}, ${theme}, ${size}, ${motion}, ${position}, tether ${tether}, ${fps} fps, ${ascii ? "ASCII" : "Braille"}`;
   }
 
   private status(): string {
@@ -408,7 +428,7 @@ export function register(host: ExtensionHost, options: { kind: HarnessKind }): v
     session = undefined;
   });
   host.registerCommand("neon", {
-    description: "Neon animal companions: list, demo cat, animal, next, theme, size, motion, position, on/off",
+    description: "Neon animal companions: list, demo cat, animal, next, style, theme, size, motion, position, tether, fps, on/off",
     handler(args, ctx) {
       if (ctx.agent?.kind === "sub") return;
       const current = ensureSession(ctx);

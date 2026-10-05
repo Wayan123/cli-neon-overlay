@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderAnimal } from '../src/renderer.mjs';
-import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, DEFAULT_SETTINGS } from '../src/settings.mjs';
+import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, STYLES, TETHERS, DEFAULT_SETTINGS } from '../src/settings.mjs';
 
 const foreground = /^\u001b\[38;2;(\d{1,3});(\d{1,3});(\d{1,3})m$/;
 
@@ -17,7 +17,7 @@ function assertFrame(frame, columns, rows, ascii, theme = 'neon') {
     assert.ok(!positions.has(key), 'each overlay position must be unique');
     positions.add(key);
     assert.equal([...cell.text].length, 1, 'one narrow glyph per overlay');
-    if (ascii) assert.match(cell.text, /^[|/\\+o.\-]$/);
+    if (ascii) assert.match(cell.text, /^[|/\\+o.\-#*]$/);
     else assert.ok(cell.text.codePointAt(0) > 0x2800 && cell.text.codePointAt(0) <= 0x28ff);
     assert.ok(Object.values(THEMES[theme]).includes(cell.color), 'foreground must come from the selected palette');
     if (theme !== 'mono') {
@@ -129,45 +129,104 @@ test('capacity fitting keeps every leg connected rather than truncating one side
   }
 });
 
-test('motion roams over time without teleporting between adjacent frames', () => {
-  const input = { columns: 120, rows: 48 };
+test('normal motion still drifts slowly without teleporting between adjacent frames', () => {
+  const input = { columns: 120, rows: 48, motion: 'normal' };
   const start = centroid(renderAnimal({ ...input, elapsedMs: 0 }));
   let maximumTravel = 0;
   for (let elapsedMs = 0; elapsedMs <= 60_000; elapsedMs += 500) {
-    const frame = renderAnimal({ ...input, elapsedMs });
-    const next = renderAnimal({ ...input, elapsedMs: elapsedMs + 67 });
-    const a = centroid(frame);
-    const b = centroid(next);
+    const a = centroid(renderAnimal({ ...input, elapsedMs }));
+    const b = centroid(renderAnimal({ ...input, elapsedMs: elapsedMs + 67 }));
     assert.ok(Math.hypot(b.x - a.x, b.y - a.y) < 2, 'adjacent frames should move slowly');
     maximumTravel = Math.max(maximumTravel, Math.hypot(a.x - start.x, a.y - start.y));
   }
   assert.ok(maximumTravel > 10, 'the spider should roam, not remain a rotating spinner');
 });
 
-test('every species fits option combinations without clipping or exceeding sparse capacity', () => {
+test('lively default perches, then darts continuously across the viewport', () => {
+  const columns = 120;
+  const rows = 48;
   for (const { id: animal } of ANIMALS) {
-    for (const theme of Object.keys(THEMES)) {
-      for (const size of Object.keys(SIZES)) {
-        for (const motion of Object.keys(MOTIONS)) {
-          for (const position of POSITIONS) {
-            for (const ascii of [false, true]) {
-              for (const [columns, rows] of [[40, 16], [81, 25], [160, 64]]) {
-                for (const elapsedMs of [0, 2750, 4600, 7600, 31_000]) {
-                  const frame = renderAnimal({ columns, rows, elapsedMs, animal, theme, size, motion, position, ascii });
-                  assertFrame(frame, columns, rows, ascii, theme);
-                }
-              }
-            }
+    for (const frameMs of [67, 33]) {
+      const centers = [];
+      for (let elapsedMs = 0; elapsedMs <= 60_000; elapsedMs += frameMs) {
+        centers.push(centroid(renderAnimal({ columns, rows, elapsedMs, animal })));
+      }
+      const steps = centers.slice(1).map((c, i) => Math.hypot(c.x - centers[i].x, c.y - centers[i].y));
+      // A dart is fast but traverses intermediate cells: never a cross-screen jump.
+      assert.ok(Math.max(...steps) < (frameMs === 33 ? 7 : 11), `${animal} must not teleport at ${frameMs} ms`);
+      const resting = steps.filter(step => step < 0.75).length / steps.length;
+      const darting = steps.filter(step => step > 1).length / steps.length;
+      assert.ok(resting > 0.5, `${animal} spends most frames perched`);
+      assert.ok(darting > 0.03, `${animal} visibly darts between perches`);
+      const xs = centers.map(c => c.x);
+      assert.ok(Math.max(...xs) - Math.min(...xs) > columns * 0.4, `${animal} roams across the viewport`);
+    }
+  }
+});
+
+test('perch targets land the animal beside a supplied cell, and invalid perches fall back', () => {
+  const columns = 120;
+  const rows = 48;
+  const at = { x: 30, y: 12 };
+  // Late in a hold the animal rests on the current hop's perch.
+  const frame = renderAnimal({ columns, rows, elapsedMs: 2600 * 7 + 1500, motion: 'lively', perch: () => at });
+  const center = centroid(frame);
+  assert.ok(Math.abs(center.y - at.y) <= 3, 'perched animal sits on the requested row');
+  const left = Math.min(...frame.map(cell => cell.x));
+  assert.ok(left > at.x && left <= at.x + 4, 'perched animal sits just right of the word end');
+  for (const perch of [() => undefined, () => ({ x: NaN, y: 3 }), () => ({ x: Infinity, y: 3 })]) {
+    const fallback = renderAnimal({ columns, rows, elapsedMs: 5000, perch });
+    assertFrame(fallback, columns, rows, false);
+    assert.deepEqual(fallback, renderAnimal({ columns, rows, elapsedMs: 5000 }));
+  }
+  assert.deepEqual(renderAnimal({ columns, rows, elapsedMs: 0, perch: 'left' }), []);
+});
+
+test('every species fits option combinations without clipping or exceeding sparse capacity', () => {
+  const geometries = [[40, 16], [81, 25], [160, 64]];
+  const times = [0, 2750, 4600, 7600, 31_000];
+  const check = (settings) => {
+    for (const [columns, rows] of geometries) {
+      for (const elapsedMs of times) {
+        assertFrame(renderAnimal({ columns, rows, elapsedMs, ...settings }), columns, rows, settings.ascii, settings.theme);
+      }
+    }
+  };
+  for (const { id: animal } of ANIMALS) {
+    for (const style of STYLES) {
+      for (const ascii of [false, true]) {
+        for (const size of Object.keys(SIZES)) {
+          for (const motion of Object.keys(MOTIONS)) {
+            for (const position of POSITIONS) check({ animal, style, ascii, size, motion, position, theme: 'neon', tether: 'on' });
           }
+        }
+        for (const theme of Object.keys(THEMES)) {
+          for (const tether of TETHERS) check({ animal, style, ascii, theme, tether, size: 'large', motion: 'lively', position: 'roam' });
         }
       }
     }
   }
 });
 
+test('filled styles add a body without changing the outline footprint, and tether off removes silk', () => {
+  const input = { columns: 160, rows: 64, elapsedMs: 1200, motion: 'normal', position: 'center' };
+  for (const { id: animal } of ANIMALS) {
+    const wire = renderAnimal({ ...input, animal });
+    const orb = renderAnimal({ ...input, animal, style: 'orb' });
+    const fuzzy = renderAnimal({ ...input, animal, style: 'fuzzy' });
+    const keys = frame => new Set(frame.map(cell => `${cell.x}:${cell.y}`));
+    assert.ok([...keys(wire)].every(key => keys(orb).has(key)), `${animal} orb keeps every outline cell`);
+    assert.ok(orb.length > wire.length, `${animal} orb fills its body`);
+    assert.ok(fuzzy.length > orb.length, `${animal} fuzzy adds a fringe`);
+  }
+  // During a dart the silk trails behind; off must not draw it.
+  const darting = { columns: 160, rows: 64, elapsedMs: 2600 * 3 + 2300, animal: 'mite' };
+  assert.ok(renderAnimal(darting).length > renderAnimal({ ...darting, tether: 'off' }).length);
+});
+
 test('invalid settings never silently render a different animal or style', () => {
   const input = { columns: 80, rows: 24, elapsedMs: 0 };
-  for (const key of ['animal', 'theme', 'size', 'motion', 'position']) {
+  for (const key of ['animal', 'theme', 'size', 'motion', 'position', 'style', 'tether']) {
     for (const value of ['', 'unknown', 'toString', '__proto__', null, 1, {}, []]) {
       assert.deepEqual(renderAnimal({ ...input, [key]: value }), []);
     }
