@@ -9,6 +9,7 @@
 - Added `/neon fps 15|30`; verified 15.3 and 30.3 distinct overlay frames per second in real OMP 18.6.1 and Pi 1.0.3 sessions.
 - Standalone preview and companion panes gained style, tether and fps options and keys.
 - Added a README showcase GIF made from real OMP pane captures.
+- Rewrote the README around the current menagerie: an animal gallery, style and theme comparisons rendered by the shipped renderer, and fresh real OMP 18.6.1 and Pi 1.0.4 captures replacing the old static terminal images. The earlier spider recording moved to a clearly labeled history section.
 
 ## Replacement source recording
 

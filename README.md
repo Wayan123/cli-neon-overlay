@@ -2,209 +2,176 @@
 
 A little wildlife for your coding terminal.
 
-Let a fuzzy mite hop between words, an octopus wave its tentacles, a crab snap its claws, or a wireframe spider dart across the screen while you code. Eight animals and three looks—`wireframe`, filled `orb`, and `fuzzy`—perch, wind up, dart and land with a squash. Use a **native overlay in OMP/Pi**, or a **separate companion pane alongside Codex, Claude Code, and other terminal CLIs**. The standalone preview lets you try them before installing anything.
+Eight hand-built Braille animals live in the free space above your prompt. They perch, wind up, dart to a new spot and land with a squash, trailing a dashed silk line. In Pi they even sit beside words on screen. Pick a look, pick a palette, and keep coding.
 
 ![Mite, octopus, crab and spider darting across a real OMP session in fuzzy, orb and wireframe styles](docs/media/lively-showcase.gif)
 
-The showcase above is rendered from real OMP 18.6.1 pane captures (`/neon on`, 30 fps) and redrawn dot-for-dot; it is not a mock-up. Methods, measurements and limits are in [the 1.3.0 verification report](docs/operations/lively-verification.md).
-
-## Watch the original CLI recording
-
-![Spider overlay running over the real CLI in the supplied recording](docs/media/live-cli-demo.gif)
-
-The looping GIF above plays inline when you open this README. It comes from the replacement `assets/video-example.mp4`, showing the spider animated over a real coding CLI during a system-health check, not the separate standalone renderer or a reconstructed terminal. The full 1486×754 frame and complete video sequence are preserved; GIF conversion uses a 256-color palette and has no audio.
-
-This clip shows the spider, not every animal or harness. It replaces the first recording that showed a server launch command. The new session's project text, local paths and diagnostic output remain as recorded; this is a demonstration of the overlay, not proof of a completed coding task. English descriptions accompany the original mixed-language CLI capture. The commands below let you run the effect yourself.
-
-## Live demo inside OMP or Pi
-
-Run the actual coding CLI with the native extension from this checkout:
+This loop is redrawn dot for dot from real OMP 18.6.1 pane captures (`/neon on`, 30 fps). It is not a mock-up.
 
 ```bash
 git clone https://github.com/Wayan123/cli-neon-overlay.git
 cd cli-neon-overlay
+npm run demo -- --animal mite --style fuzzy --theme lime
+```
+
+That runs the preview in any terminal with Node.js 22+. No `npm install`, no account, no network calls. Press `n` for the next animal, `y` for the next style, and `q` to quit.
+
+## Meet the menagerie
+
+![All eight animals: spider, cat, fox, jellyfish, mite, urchin, octopus and crab](docs/media/animals.png)
+
+| Animal | Personality | Try it |
+| --- | --- | --- |
+| `spider` | Eight jointed legs, slow rotation and scan strokes | `/neon demo spider` |
+| `cat` | Pointed ears, whiskers, blinking eyes and a swinging tail | `/neon demo cat` |
+| `fox` | Long muzzle, alert ears and a bushy swaying tail | `/neon demo fox` |
+| `jellyfish` | A pulsing bell and trailing tentacles | `/neon demo jellyfish` |
+| `mite` | Round body, tripod-gait legs with ball tips and big curious eyes | `/neon demo mite` |
+| `urchin` | Spiny orb whose spines pulse and slowly turn | `/neon demo urchin` |
+| `octopus` | Round mantle and eight waving, curling tentacles | `/neon demo octopus` |
+| `crab` | Wide shell, eye stalks, scuttling legs and snapping claws | `/neon demo crab` |
+
+Every animal is original procedural geometry. Nothing is copied from sprite packs.
+
+## Three looks, five palettes
+
+![Octopus and crab in wireframe, orb and fuzzy styles](docs/media/styles.png)
+
+`wireframe` draws the outline. `orb` fills the body and gives limbs ball tips. `fuzzy` adds a flickering fur fringe around the filled body.
+
+![The mite in neon, sunset, lime, magenta and mono themes, plus the crab in ASCII](docs/media/themes.png)
+
+`neon` (cyan and magenta), `sunset` (amber and coral), `lime` (green and pink), `magenta` (pink and cyan) and `mono` (your terminal's own foreground). If your font has no Braille, `/neon ascii` switches to real line glyphs.
+
+## Living inside a real CLI
+
+In OMP and Pi the animal is a native overlay: sparse single cells drawn on top of the interface, never a panel or a video.
+
+![A large magenta octopus in orb style perched over the OMP 18.6.1 start screen](docs/media/omp-octopus.png)
+
+*OMP 18.6.1: `/neon style orb`, `/neon theme magenta`, `/neon animal octopus`, `/neon size large`, `/neon on`.*
+
+![A large lime fuzzy mite perched among the prompt list in Pi 1.0.4](docs/media/pi-mite.png)
+
+*Pi 1.0.4: the same steps with `fuzzy`, `lime` and `mite`. Pi lets the animal perch beside visible words; the dashed silk shows where it hopped from.*
+
+Both images are real pane captures, redrawn cell for cell with their recorded colors.
+
+## Try it inside OMP or Pi
+
+Load the extension for one session straight from the checkout:
+
+```bash
 omp --no-extensions -e ./extensions/omp.ts
-# Or use Pi:
+# or
 pi --no-extensions -e ./extensions/pi.ts
 ```
 
-Then enter these commands in the CLI itself:
+Then type these into the CLI:
 
 ```text
-/neon list
-/neon demo mite
+/neon demo octopus
 /neon style fuzzy
 /neon theme lime
-/neon demo octopus
 /neon fps 30
 /neon on
 /neon next
 /neon off
 ```
 
-The animal is rendered live inside the OMP/Pi interface. Typing temporarily hides it; wait one second after entering a command to see it again. `demo` lasts 17 seconds, `on` keeps it visible, and `off` removes it. No video player or separate video file is involved. `--no-extensions` disables other discovered extensions for this invocation; omit it if you need them, and avoid loading this extension twice.
+`demo` shows the animal for 17 seconds, `on` keeps it visible, and `off` removes it. Typing hides it for a second so it never sits on your input. `--no-extensions` skips your other extensions for that run; leave it out if you need them, but do not load this one twice.
 
-## Live preview without a coding harness
-
-Requires **Node.js 22 or newer** and an interactive terminal. No `npm install`, account, API key, or runtime dependencies needed:
+### Install it permanently
 
 ```bash
-npm run demo -- --animal cat
+npm run install:omp
+npm run install:pi
+npm run install:both
 ```
 
-This command runs the same animal renderer directly in your terminal. It is an interactive standalone preview, not video playback and not proof of a native harness integration.
+Each command writes one small marked wrapper, `~/.omp/agent/extensions/cli-neon-overlay.ts` or `~/.pi/agent/extensions/cli-neon-overlay/index.ts`, that points at this checkout. Nothing is downloaded, and your provider, credentials and settings are untouched. Use `-- --dry-run` to see the targets first. Existing files the installer did not create are never overwritten.
 
-Press `n` / `p` to browse the animals, `y` for style, `t` for colors, `s` for size, `m` for motion, `l` for position, `w` for the silk tether, `f` for 15/30 fps, and `a` for ASCII/Braille. Quit with `q`, Escape, or Ctrl+C. The preview restores the cursor, alternate screen, and terminal input mode when it closes.
+Restart OMP, or run `/reload` in Pi. To remove it, run `npm run uninstall:omp` or `npm run uninstall:pi`. Keep the checkout in place while installed; if you move it, run the installer again from the new location.
+
+By default the overlay runs in `auto` mode and appears only while the agent is working. Picking an animal or style does not turn it on; use `demo` or `on` for that.
+
+### Every command
+
+| Command | What it does |
+| --- | --- |
+| `/neon animal crab` | Pick any animal; `/neon crab` works too |
+| `/neon next` | Cycle to the next animal |
+| `/neon style orb` | `wireframe`, `orb` or `fuzzy` |
+| `/neon theme lime` | `neon`, `sunset`, `lime`, `magenta` or `mono` |
+| `/neon size large` | `small`, `medium` or `large`, shrunk to fit if needed |
+| `/neon motion lively` | `lively` (default) perches and darts; `normal` drifts; `slow`; `still` freezes |
+| `/neon position right` | `roam`, `left`, `center` or `right`; fixed positions do not dart |
+| `/neon tether off` | Show or hide the dashed silk during a dart |
+| `/neon fps 30` | `15` (default) or `30` updates per second |
+| `/neon ascii` / `/neon braille` | Line-glyph fallback or Braille subcell detail |
+| `/neon auto` / `on` / `off` | While the agent works / always / never |
+| `/neon demo [animal]` | 17-second preview of the current or named animal |
+| `/neon status` | Current settings and why it might be paused |
+| `/neon reset` | Back to the defaults and `auto` |
+| `/neon list`, `/neon help` | Animals and commands, without changing anything |
+
+Settings last for the session. A mistyped option shows the valid choices and changes nothing.
+
+## The standalone preview
 
 ```bash
 npm run demo -- --list
-npm run demo -- --help
-npm run demo -- --animal mite --style fuzzy --theme lime
 npm run demo -- --animal crab --style orb --fps 30
 npm run demo -- --animal jellyfish --theme sunset --motion slow --position right
+npm run demo -- --help
 ```
 
-## Run alongside Codex, Claude Code, or another CLI
+Keys: `n`/`p` animal, `y` style, `t` theme, `s` size, `m` motion, `l` position, `w` tether, `f` fps, `a` ASCII/Braille, `q` or Escape to quit. The terminal is restored when it closes. This runs the same renderer as the native overlay, but outside any coding CLI.
 
-Companion mode gives your harness its own terminal pane and puts the animal beside it. It uses **tmux 3.2+** on Linux, macOS or Windows via WSL, plus Node.js 22+. Install tmux and your chosen CLI separately; the launcher downloads nothing.
+## Next to Codex, Claude Code and other CLIs
+
+Companion mode runs your CLI in one tmux pane and the animal in a second pane beside it. It needs tmux 3.2+ and Node.js 22+ on Linux, macOS or Windows via WSL. The launcher installs nothing.
 
 ```bash
-npm run companion -- --animal cat -- codex
+npm run companion -- --animal octopus --style orb -- codex
 npm run companion -- --animal fox -- claude
 npm run companion -- --animal jellyfish --theme sunset -- opencode
 npm run companion -- --ascii -- aider --model your-model
 ```
 
-The first `--` belongs to npm. The second separates animal options from the executable and its arguments. Everything after that separator belongs to the harness, including flags such as `--help`.
+The first `--` belongs to npm. The second separates animal options from the command you are launching; everything after it goes to that CLI. To use it in another project, run `node /path/to/cli-neon-overlay/scripts/companion.mjs --animal cat -- codex` from that project.
 
-To work in another project, change into that project and run the launcher by its path:
+- Focus starts in your CLI. Ctrl+B then Left/Right switches panes; the animal pane takes the same keys as the preview.
+- Quit your CLI normally to close both panes, and its exit code is kept. Ctrl+B then d force-stops the session, so save your work first.
+- Each launch uses its own private tmux socket and leaves your tmux setup alone.
+- Start at 82×16 or larger; 120×30 is comfortable.
 
-```bash
-cd /path/to/your/project
-node /path/to/cli-neon-overlay/scripts/companion.mjs --animal cat -- codex
-```
-
-Replace the example paths with your checkout/project locations. The harness keeps that working directory and your existing login/settings. There is no Codex/Claude extension to install, and the launcher does not change their configuration, permissions or first-run prompts.
-
-- Keyboard focus starts in the harness. **Ctrl+B, then Left/Right** switches panes; use `n/p`, `y`, `t`, `s`, `m`, `l`, `w`, `f`, `a` in the animal pane. Ctrl+B twice sends a literal Ctrl+B to the harness.
-- Exit the harness normally to close the companion; its exit code is preserved. **Ctrl+B, then d** ends this owned session and forcibly stops any remaining live host process group. Finish or save your work before detaching; do not use detach if you want the agent to continue.
-- Each launch owns a private tmux socket. Existing tmux sessions and configuration are not modified. It can run from inside tmux too; the outer session's prefix may require Ctrl+B twice.
-- Minimum starting size: 82 columns × 16 rows; 120 × 30 is more comfortable. tmux handles resizing; a cramped animal pane shows the preview's resize message.
-- `--motion still` freezes the animation. `CLI_NEON_REDUCED_MOTION=1` starts this pane in still mode. `--ascii` avoids Braille font requirements.
-
-### Compatibility is explicit
-
-| Harness | Integration | Behavior |
+| CLI | How it runs | What you get |
 | --- | --- | --- |
-| OMP / Pi | Native extension | `/neon` commands, agent-busy auto mode, typing/dialog pause |
-| Codex CLI / Claude Code | Companion pane | Harness and animal run in separate PTYs; no `/neon` injection or busy detection |
-| OpenCode / Gemini CLI | Generic companion pane | Specific versions exercised directly; startup, controls and boundaries documented below |
-| Aider and other installed interactive commands | Generic companion pane | Executable/argument examples; not individually verified here |
+| OMP / Pi | Native extension | `/neon` commands, auto mode while the agent works, pauses while you type |
+| Codex CLI / Claude Code | Companion pane | Animal beside the CLI; no `/neon` commands or busy detection |
+| OpenCode / Gemini CLI | Companion pane | Specific versions run directly; notes below |
+| Aider and other interactive commands | Companion pane | Should work the same way; not individually tested |
 
-Codex CLI 0.159.1 and Claude Code 2.1.63 were launched in real PTYs on WSL alongside animated animals. Their folder-trust/first-run screens remained intact; no trust decision, login or model request was submitted. Generic input, resize, pane controls, detach/signal cleanup and terminal restoration were exercised separately. This is **not a transparent overlay inside Codex/Claude** and does not automatically pause when their agents are idle or typing. See [verification details](docs/operations/multi-harness-verification.md).
+Codex CLI 0.159.1, Claude Code 2.1.63, OpenCode 1.15.3 and Gemini CLI 0.43.0 were run beside live animals on WSL, without logging in or sending model requests. OpenCode exposed a teardown bug that is now fixed. Gemini's own updater upgraded itself during that run, which this project does not control. Details: [multi-harness report](docs/operations/multi-harness-verification.md) and [direct CLI run report](docs/operations/live-cli-verification.md).
 
-The revised live runs also exercised OpenCode 1.15.3 and Gemini CLI 0.43.0, alongside the native OMP/Pi demos and the standalone renderer. OpenCode exposed a hangup-resistant process that survived the earlier teardown; the launcher now stops its owned live process group, and an actual OpenCode rerun verified cleanup. Gemini's own startup auto-updater unexpectedly changed its installed version to 0.62.0; that newer version was not exercised, and no rollback was attempted. Third-party CLIs can have their own startup side effects even though this launcher does not install or update them. No trust/setup prompt or model request was submitted. Aider was unavailable and remains unverified. See [the direct CLI run report](docs/operations/live-cli-verification.md).
+## Designed to stay out of your way
 
-### Static terminal captures
+- Typing hides the overlay for one second, and dialogs hide it while open. Your keystrokes always go to the CLI.
+- It uses only the upper part of the screen, needs at least 40×16 with eight clear rows above the editor, and pauses rather than clipping.
+- Headless, print, JSON/RPC, non-TTY and subagent sessions never animate. `CLI_NEON_REDUCED_MOTION=1` turns the native overlay off; `--motion still` freezes the preview.
+- At most 128 cells per frame. A frame takes about 0.05 to 0.15 ms to compute on average (1.6 ms worst seen) on the test machine. No audio, no model calls, no network requests.
+- Cells cover the characters under them while visible; there is no transparency. OMP holds scrollback while overlays show, so prefer `auto` or `off` during long output.
+- Pi perching skips rows with non-ASCII text, because their cell positions cannot be known. OMP does not expose its screen text, so animals there pick wandering spots instead.
+- Glow, gradients and soft fur are beyond what terminal cells can show; `fuzzy` suggests fur with Braille dots.
 
-These earlier images reconstruct terminal output and are kept only as additional species references. The primary video above is the supplied actual CLI recording, not these reconstructions or the old standalone montage.
+## The original recording
 
-![Four original wireframe companions in the standalone terminal preview](docs/media/companions.png)
+Before the lively update, this desktop recording showed the spider running over a real CLI session:
 
-Native reference captures: [OMP Cat](docs/media/omp-cat.png), [Pi Jellyfish](docs/media/pi-jellyfish.png).
+![Spider overlay running over a real CLI session in the supplied recording](docs/media/live-cli-demo.gif)
 
-## Bring one into OMP or Pi
-
-Install your preferred coding CLI separately. From this checkout:
-
-```bash
-npm run install:omp
-# or
-npm run install:pi
-# or both
-npm run install:both
-```
-
-The installer creates only a small extension wrapper in `~/.omp/agent/extensions/cli-neon-overlay.ts` or `~/.pi/agent/extensions/cli-neon-overlay/index.ts`. It does not download packages or change your provider, credentials, harness source, or settings. Run `npm run install:both -- --dry-run` to inspect the targets without writing anything. Unrelated existing files are never overwritten.
-
-Restart OMP; in Pi, run `/reload` or restart. Then try:
-
-```text
-/neon list
-/neon demo crab
-/neon style orb
-/neon theme magenta
-/neon motion slow
-/neon on
-```
-
-The default `auto` mode shows your companion only while the main agent works. Choosing an animal or style does not switch an idle/off overlay on. Use `demo` for a 17-second preview or `on` to keep it visible. Demo temporarily overrides `off`; after expiry, the previous mode applies. Its chosen animal stays selected.
-
-### Pick your companion
-
-| Animal | What makes it different | Preview |
-| --- | --- | --- |
-| `spider` | Eight jointed legs, slow rotation and local scan strokes | `/neon demo spider` |
-| `cat` | Pointed ears, whiskers, blinking eyes and a swinging tail | `/neon demo cat` |
-| `fox` | Long muzzle, alert ears and a bushy swaying tail | `/neon demo fox` |
-| `jellyfish` | A pulsing bell and flowing trailing tentacles | `/neon demo jellyfish` |
-| `mite` | Round body, tripod-gait legs with ball tips and big curious eyes | `/neon demo mite` |
-| `urchin` | Spiny orb whose radiating spines pulse and slowly turn | `/neon demo urchin` |
-| `octopus` | Round mantle and eight waving, curling tentacles | `/neon demo octopus` |
-| `crab` | Wide shell, eye stalks, scuttling legs and snapping claws | `/neon demo crab` |
-
-### Tune the view
-
-| Command | Choices / effect |
-| --- | --- |
-| `/neon animal cat` | Select any animal above; `/neon cat` also works |
-| `/neon next` | Cycle to the next animal |
-| `/neon style orb` | `wireframe` outline, `orb` filled body with ball-tipped limbs, `fuzzy` filled body with a flickering fur fringe |
-| `/neon theme lime` | `neon` cyan/magenta, `sunset` amber/coral, `lime` green/pink, `magenta` pink/cyan, `mono` terminal foreground |
-| `/neon size medium` | `small`, `medium`, `large`; fitted down to available space |
-| `/neon motion lively` | `lively` (default) perches, winds up, darts with an overshoot and lands with a squash; `normal` slow drift; `slow`; `still` freezes pose and position |
-| `/neon position right` | `roam`, `left`, `center`, `right` in the safe upper area; fixed positions do not dart |
-| `/neon tether off` | `on` draws a short dashed silk line from the last perch during a dart; `off` hides it |
-| `/neon fps 30` | `15` (default) or `30` updates per second |
-| `/neon ascii` / `/neon braille` | Real line-glyph fallback / subcell detail |
-| `/neon auto` / `/neon on` / `/neon off` | Agent activity only / always / remove overlay |
-| `/neon demo [animal]` | Preview the current or named animal for 17 seconds |
-| `/neon status` | Current animal, style, mode, and pause reason |
-| `/neon reset` | Restore default spider/style and auto mode; end the demo |
-| `/neon help` or `/neon` | Show commands and examples without changing mode |
-
-Preferences are session-local. Bad options show valid choices and leave the current state alone.
-
-### No global installation
-
-Run from the checkout:
-
-```bash
-omp --no-extensions -e ./extensions/omp.ts
-pi --no-extensions -e ./extensions/pi.ts
-```
-
-`--no-extensions` disables discovery of your other extensions for that invocation. Omit it if you want them too, but do not load this extension twice.
-
-### Remove it
-
-```bash
-npm run uninstall:omp
-npm run uninstall:pi
-```
-
-Restart/reload afterward. Keep the checkout while installed: the wrapper references its absolute location. If you move the project, rerun the installer from the new location. If a legacy unmarked wrapper already occupies the target, inspect/remove that file yourself before installing; the installer deliberately refuses to take ownership of it.
-
-## Native overlays stay out of your way
-
-- Typing hides the overlay for one second; dialogs hide it while they own focus. The extension never consumes your keystrokes.
-- Only the upper safe area is used. Native overlay needs at least 40 columns × 16 rows and eight clear rows above the editor; smaller spaces pause instead of clipping. Standalone preview reserves extra rows for its own controls.
-- Headless/print/JSON/RPC, non-TTY output, and subagent sessions do not animate.
-- To disable the native overlay before launch: `CLI_NEON_REDUCED_MOTION=1 omp` or `CLI_NEON_REDUCED_MOTION=1 pi`. For a motionless standalone preview: `npm run demo -- --motion still`.
-- Braille requires a font with U+2800–U+28FF support. If you see boxes, use ASCII. Choose `mono` for a palette that follows your terminal foreground; bright palettes work best on dark backgrounds.
-- Sparse native cells temporarily cover characters beneath the animal; they do not cover a rectangular panel and are not alpha transparency. OMP holds scrollback commits while native overlays are visible, so `auto` or `off` is preferable during long output.
-- Updates run at 15 fps by default or 30 fps with `/neon fps 30`, with a 128-cell ceiling. A frame renders in about 0.05–0.15 ms on average (worst observed 1.6 ms) on the test machine. No audio, model calls, or extension network requests. Pixel glow, gradients and soft fur are not simulated; `fuzzy` approximates fur with Braille dots.
-- In Pi, lively animals perch beside the end of a visible word above the editor; rows containing non-ASCII text are skipped because their cell columns are unknown. OMP does not expose its rendered lines, so animals there perch at deterministic wandering points instead.
+It is a 1486×754 capture of the supplied `assets/video-example.mp4`, converted to GIF without cropping or sound. It shows the earlier spider-only motion, not the current animals or styles.
 
 ## Hack on the menagerie
 
@@ -212,16 +179,18 @@ Restart/reload afterward. Keep the checkout while installed: the wrapper referen
 npm test
 ```
 
-`src/settings.mjs` owns the catalog and validated commands. `src/renderer.mjs` owns original procedural animal geometry, lively flight, styles and shared rasterization. `src/perch.mjs` extracts Pi perch targets from rendered lines. `src/extension.ts` owns native lifecycle/focus safety; the files in `extensions/` only select the harness. `scripts/demo.mjs` runs the same renderer outside a harness, `src/companion.mjs` manages isolated tmux sessions for `scripts/companion.mjs`, and `scripts/install.mjs` manages the marked native wrappers.
+- `src/settings.mjs` holds the catalog and command parser.
+- `src/renderer.mjs` holds the animal geometry, lively flight, styles and rasterizer.
+- `src/perch.mjs` finds Pi perch spots in rendered lines.
+- `src/extension.ts` handles native lifecycle and focus safety; `extensions/` only selects the harness.
+- `scripts/demo.mjs` is the preview, `src/companion.mjs` with `scripts/companion.mjs` runs companion panes, and `scripts/install.mjs` manages the wrappers.
 
-To add a species, add its descriptor to `ANIMALS`, implement its geometry in the renderer (accepting the `pose` gaze/drag offsets and adding `fill` polygons for filled styles), and extend the boundary/ASCII/animation checks. Catalog-driven commands and the standalone animal selector pick it up without a new lifecycle branch. Do not copy third-party sprites without a compatible license.
+To add an animal: add it to `ANIMALS`, write its geometry (accept the `pose` gaze and drag offsets and add `fill` polygons for the filled styles), and extend the renderer tests. Commands, the preview and companion panes pick it up automatically. Please do not add third-party sprites without a compatible license.
 
-## Design, research and proof
+## Design notes and proof
 
-The BMAD flow is recorded in [the multi-animal specification](docs/bmad/multi-animal-spec.md), [implementation plan](docs/bmad/multi-animal-plan.md), and [verification and critique](docs/operations/multi-animal-verification.md). The research draws on [Asciiquarium's species-driven animation](https://github.com/craftzdog/asciiquarium-js), [Campy's coding-agent companions](https://github.com/dropdevrahul/campy), and [CLI discovery guidelines](https://clig.dev/#ease-of-discovery). All shipped animal geometry is original; no source or art from those projects is bundled.
-
-Earlier spider-only [design](docs/bmad/design.md), [verification](docs/operations/verification.md), and `artifacts/` remain historical evidence, not claims that every environment has been rechecked. Original terminal logs and earlier recordings are preserved as historical output, not translated or presented as the current demo. Current live-run results are in [the English/live CLI verification report](docs/operations/live-cli-verification.md).
+The 1.3.0 motion, styles, animals and 30 fps mode are documented with measurements in [the lively verification report](docs/operations/lively-verification.md). The multi-animal design lives in [the specification](docs/bmad/multi-animal-spec.md), [plan](docs/bmad/multi-animal-plan.md) and [verification](docs/operations/multi-animal-verification.md). Inspiration came from [Asciiquarium](https://github.com/craftzdog/asciiquarium-js), [Campy](https://github.com/dropdevrahul/campy) and the [CLI guidelines](https://clig.dev/#ease-of-discovery); no code or art from them is bundled. Earlier spider-only [design](docs/bmad/design.md), [verification](docs/operations/verification.md) and `artifacts/` are kept as history.
 
 ## License
 
-[MIT](LICENSE), copyright 2026 Wayan123. You may use, modify and redistribute the project under the license terms. Referenced third-party projects and the CLI harnesses retain their own licenses; their source/art is not bundled here.
+[MIT](LICENSE), copyright 2026 Wayan123. The CLIs and projects mentioned here keep their own licenses.
