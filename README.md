@@ -2,11 +2,11 @@
 
 A little wildlife for your coding terminal.
 
-Eight hand-built Braille animals live in the free space above your prompt. They perch, wind up, dart to a new spot and land with a squash, trailing a dashed silk line. In Pi they even sit beside words on screen. Pick a look, pick a palette, and keep coding.
+Eight hand-built Braille animals roam above your prompt: sideways, vertically, diagonally and between corners. Occasionally a different animal arrives, chases, clashes in a cartoon tussle and shrinks away if it loses. Wind-up, gaze, limb drag, landing squash and a winner's bounce keep the movement expressive. Pick a look, pick a palette, and keep coding.
 
-![Mite, octopus, crab and spider darting across a real OMP session in fuzzy, orb and wireframe styles](docs/media/lively-showcase.gif)
+![Mite and fox roaming, meeting, tussling and disappearing in the updated native OMP overlay](docs/media/random-encounters.gif)
 
-This loop is redrawn dot for dot from real OMP 18.6.1 pane captures (`/neon on`, 30 fps). It is not a mock-up.
+The 1.4.0 loop above shows a real OMP 18.8.7 session running random motion and encounters at 30 fps. It is reconstructed cell for cell from 15 Hz pane captures: 28 seconds, with arrival, chase, a cartoon clash, loser disappearance and a return to roaming. It is not a desktop screen recording. [Capture details](docs/operations/random-encounters-verification.md#readme-gif-and-publication-follow-up).
 
 ```bash
 git clone https://github.com/Wayan123/cli-neon-overlay.git
@@ -42,6 +42,26 @@ Every animal is original procedural geometry. Nothing is copied from sprite pack
 ![The mite in neon, sunset, lime, magenta and mono themes, plus the crab in ASCII](docs/media/themes.png)
 
 `neon` (cyan and magenta), `sunset` (amber and coral), `lime` (green and pink), `magenta` (pink and cyan) and `mono` (your terminal's own foreground). If your font has no Braille, `/neon ascii` switches to real line glyphs.
+
+## Random routes and occasional encounters
+
+![Arrival, chase, approach, cartoon fight, defeat and celebration in the live standalone preview](docs/media/random-encounters.png)
+
+These are cropped, cell-for-cell reconstructions of actual standalone preview captures, not a desktop screen recording. Both animals keep the selected style and palette; the visitor swaps its primary and secondary colors so the pair is easier to distinguish.
+
+```text
+/neon motion random
+/neon encounters on
+/neon fps 30
+/neon on
+```
+
+`random` is now the default motion. Each session gets its own seed, with varied pauses, curved travel and horizontal, vertical and diagonal routes. The first visitor starts arriving after roughly 4–5 seconds, followed by a tussle and disappearance; subsequent visits are separated by solo roaming. Either animal can lose. If your selected animal loses, it returns after the visitor leaves.
+
+Resize re-fits the same route progress instead of rewinding the encounter. Paths follow the available area: native overlays stay above the editor, while the preview uses the space between its header and controls. Two animals need at least 80 columns and 12 drawable rows; smaller areas show one complete animal instead. Fixed positions and other motion modes never start encounters.
+
+Use `/neon encounters off` to keep random solo roaming. `/neon motion lively` restores the previous perch-and-dart behavior, including Pi's perches beside visible words.
+
 
 ## Living inside a real CLI
 
@@ -104,8 +124,9 @@ By default the overlay runs in `auto` mode and appears only while the agent is w
 | `/neon style orb` | `wireframe`, `orb` or `fuzzy` |
 | `/neon theme lime` | `neon`, `sunset`, `lime`, `magenta` or `mono` |
 | `/neon size large` | `small`, `medium` or `large`, shrunk to fit if needed |
-| `/neon motion lively` | `lively` (default) perches and darts; `normal` drifts; `slow`; `still` freezes |
+| `/neon motion random` | `random` (default) routes and encounters; `lively` perches and darts; `normal`; `slow`; `still` freezes |
 | `/neon position right` | `roam`, `left`, `center` or `right`; fixed positions do not dart |
+| `/neon encounters off` | `on` (default) or `off`; visits require `random`, `roam` and enough space |
 | `/neon tether off` | Show or hide the dashed silk during a dart |
 | `/neon fps 30` | `15` (default) or `30` updates per second |
 | `/neon ascii` / `/neon braille` | Line-glyph fallback or Braille subcell detail |
@@ -126,7 +147,7 @@ npm run demo -- --animal jellyfish --theme sunset --motion slow --position right
 npm run demo -- --help
 ```
 
-Keys: `n`/`p` animal, `y` style, `t` theme, `s` size, `m` motion, `l` position, `w` tether, `f` fps, `a` ASCII/Braille, `q` or Escape to quit. The terminal is restored when it closes. This runs the same renderer as the native overlay, but outside any coding CLI.
+Keys: `n`/`p` animal, `y` style, `t` theme, `s` size, `m` motion, `l` position, `w` tether, `e` encounters, `f` fps, `a` ASCII/Braille, `q` or Escape to quit. The terminal is restored when it closes. This runs the same renderer as the native overlay, but outside any coding CLI.
 
 ## Next to Codex, Claude Code and other CLIs
 
@@ -160,9 +181,9 @@ Codex CLI 0.159.1, Claude Code 2.1.63, OpenCode 1.15.3 and Gemini CLI 0.43.0 wer
 - Typing hides the overlay for one second, and dialogs hide it while open. Your keystrokes always go to the CLI.
 - It uses only the upper part of the screen, needs at least 40×16 with eight clear rows above the editor, and pauses rather than clipping.
 - Headless, print, JSON/RPC, non-TTY and subagent sessions never animate. `CLI_NEON_REDUCED_MOTION=1` turns the native overlay off; `--motion still` freezes the preview.
-- At most 128 cells per frame. A frame takes about 0.05 to 0.15 ms to compute on average (1.6 ms worst seen) on the test machine. No audio, no model calls, no network requests.
+- At most 128 cells per animal and 256 for a complete two-animal scene including effects. In the current 200×60 renderer benchmark, mean frame cost was 0.10–0.29 ms, with 3.15 ms worst observed. These measurements exclude host rendering overhead. No audio, no model calls, no network requests.
 - Cells cover the characters under them while visible; there is no transparency. OMP holds scrollback while overlays show, so prefer `auto` or `off` during long output.
-- Pi perching skips rows with non-ASCII text, because their cell positions cannot be known. OMP does not expose its screen text, so animals there pick wandering spots instead.
+- In `lively` mode, Pi perching skips rows with non-ASCII text because their cell positions cannot be known. OMP does not expose its screen text, so it uses wandering perches. `random` routes do not depend on text in either harness.
 - Glow, gradients and soft fur are beyond what terminal cells can show; `fuzzy` suggests fur with Braille dots.
 
 ## The original recording
@@ -181,6 +202,7 @@ npm test
 
 - `src/settings.mjs` holds the catalog and command parser.
 - `src/renderer.mjs` holds the animal geometry, lively flight, styles and rasterizer.
+- `src/scene.mjs` plans seeded routes, encounters, contact, disappearance and celebration.
 - `src/perch.mjs` finds Pi perch spots in rendered lines.
 - `src/extension.ts` handles native lifecycle and focus safety; `extensions/` only selects the harness.
 - `scripts/demo.mjs` is the preview, `src/companion.mjs` with `scripts/companion.mjs` runs companion panes, and `scripts/install.mjs` manages the wrappers.
@@ -188,6 +210,8 @@ npm test
 To add an animal: add it to `ANIMALS`, write its geometry (accept the `pose` gaze and drag offsets and add `fill` polygons for the filled styles), and extend the renderer tests. Commands, the preview and companion panes pick it up automatically. Please do not add third-party sprites without a compatible license.
 
 ## Design notes and proof
+
+The 1.4.0 random routes and encounters have a [BMAD specification](docs/bmad/random-encounters-spec.md), [implementation plan](docs/bmad/random-encounters-plan.md) and [verification and critique report](docs/operations/random-encounters-verification.md). Live preview, companion, OMP 18.8.6 and Pi 1.1.0 were exercised on WSL; the older images and recordings above remain labeled historical evidence.
 
 The 1.3.0 motion, styles, animals and 30 fps mode are documented with measurements in [the lively verification report](docs/operations/lively-verification.md). The multi-animal design lives in [the specification](docs/bmad/multi-animal-spec.md), [plan](docs/bmad/multi-animal-plan.md) and [verification](docs/operations/multi-animal-verification.md). Inspiration came from [Asciiquarium](https://github.com/craftzdog/asciiquarium-js), [Campy](https://github.com/dropdevrahul/campy) and the [CLI guidelines](https://clig.dev/#ease-of-discovery); no code or art from them is bundled. Earlier spider-only [design](docs/bmad/design.md), [verification](docs/operations/verification.md) and `artifacts/` are kept as history.
 

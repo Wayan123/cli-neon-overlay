@@ -3,7 +3,7 @@ import { accessSync, constants, mkdtempSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { delimiter, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ANIMALS, DEFAULT_SETTINGS, FRAME_RATES, MOTIONS, POSITIONS, SIZES, STYLES, TETHERS, THEMES, parseNeonCommand } from './settings.mjs';
+import { ANIMALS, DEFAULT_SETTINGS, ENCOUNTERS, FRAME_RATES, MOTIONS, POSITIONS, SIZES, STYLES, TETHERS, THEMES, parseNeonCommand } from './settings.mjs';
 
 export const COMPANION_HELP = `Usage: npm run companion -- [animal options] -- command [arguments...]
 
@@ -13,7 +13,8 @@ Requires Node.js 22+, tmux 3.2+, Linux/macOS/WSL, and an interactive terminal.
 Animal options: --animal ${ANIMALS.map(({ id }) => id).join('|')},
   --style ${STYLES.join('|')}, --theme ${Object.keys(THEMES).join('|')},
   --size ${Object.keys(SIZES).join('|')}, --motion ${Object.keys(MOTIONS).join('|')},
-  --position ${POSITIONS.join('|')}, --tether ${TETHERS.join('|')}, --fps ${FRAME_RATES.join('|')}, --ascii
+  --position ${POSITIONS.join('|')}, --tether ${TETHERS.join('|')},
+  --encounters ${ENCOUNTERS.join('|')}, --fps ${FRAME_RATES.join('|')}, --ascii
 
 Examples:
   npm run companion -- --animal cat -- codex
@@ -21,7 +22,8 @@ Examples:
   npm run companion -- --ascii -- opencode
   npm run companion -- --motion slow -- aider --model your-model
 
-Ctrl+B then Left/Right: switch pane. Animal pane: n/p, y, t, s, m, l, w, f, a.
+Ctrl+B then Left/Right: switch pane. Animal pane: n/p, y, t, s, m, l, w, e, f, a.
+Key e toggles encounters on/off.
 Exit your harness normally to close both panes. Ctrl+B then d forcibly ends
 the owned live host process group; save work first, not a background detach.
 /neon commands and automatic busy/typing detection belong to native OMP/Pi

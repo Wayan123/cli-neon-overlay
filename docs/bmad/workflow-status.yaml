@@ -54,3 +54,28 @@ iterations:
       branch: main
       source_commit: 2f640b620bb7b822d7429e52cd1b5991508e20dc # pragma: allowlist secret
       clean_clone: "npm test 19/19; documented cat preview and README media verified"
+  random_encounters:
+    date: "2026-10-09"
+    version: "1.4.0"
+    track: quick-flow
+    spec:
+      status: complete
+      artifact: docs/bmad/random-encounters-spec.md
+    sprint_plan:
+      status: complete
+      artifact: docs/bmad/random-encounters-plan.md
+    build:
+      status: complete
+      artifact: src/scene.mjs
+    code_review:
+      status: complete
+      artifact: docs/operations/random-encounters-verification.md
+    walkthrough:
+      status: complete
+      media: docs/media/random-encounters.png
+      gif: docs/media/random-encounters.gif
+      visual_limit: cropped ANSI PTY reconstruction, not desktop pixels
+    delivery:
+      status: approved
+      branch: main
+      note: user explicitly requested commit and push with a latest-update README GIF

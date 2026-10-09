@@ -1,4 +1,7 @@
 import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, STYLES, TETHERS, DEFAULT_SETTINGS } from './settings.mjs';
+import { sampleJourney, planScene } from './scene.mjs';
+
+export const SCENE_CAPACITY = 256;
 
 const ANIMAL_IDS = new Set(ANIMALS.map(({ id }) => id));
 const CAPACITY = 128;
@@ -485,16 +488,19 @@ function livelyState(seconds, target) {
   };
 }
 
-/**
- * Pure sparse terminal geometry; coordinates never address the bottom half.
- * `perch(hop)` may return a viewport cell `{x, y}` to land beside; it must be stable per hop.
- */
-export function renderAnimal(input) {
-  if (input === null || typeof input !== 'object') return [];
+
+function sceneRegion(columns, height, size) {
+  return { x: Math.min((columns - 1) * 0.24, 15 * SIZES[size] + 2),
+    y: Math.min((height - 1) * 0.28, 7 * SIZES[size] + 1) };
+}
+/** Validate once at the public boundary; actor placement stays private to the renderer. */
+function resolveInput(input) {
+  if (input === null || typeof input !== 'object') return undefined;
   const { columns, rows, elapsedMs, ascii = DEFAULT_SETTINGS.ascii,
     animal = DEFAULT_SETTINGS.animal, theme = DEFAULT_SETTINGS.theme, size = DEFAULT_SETTINGS.size,
     motion = DEFAULT_SETTINGS.motion, position = DEFAULT_SETTINGS.position,
-    style = DEFAULT_SETTINGS.style, tether = DEFAULT_SETTINGS.tether, perch } = input;
+    style = DEFAULT_SETTINGS.style, tether = DEFAULT_SETTINGS.tether, perch,
+    encounters = DEFAULT_SETTINGS.encounters, seed = 1 } = input;
   if (!Number.isSafeInteger(columns) || !Number.isSafeInteger(rows)
     || columns < 40 || rows < 16 || !Number.isFinite(elapsedMs) || elapsedMs < 0
     || typeof ascii !== 'boolean' || !ANIMAL_IDS.has(animal)
@@ -502,31 +508,54 @@ export function renderAnimal(input) {
     || typeof size !== 'string' || !Object.hasOwn(SIZES, size)
     || typeof motion !== 'string' || !Object.hasOwn(MOTIONS, motion)
     || !POSITIONS.includes(position) || !STYLES.includes(style) || !TETHERS.includes(tether)
-    || (perch !== undefined && typeof perch !== 'function')) return [];
+    || (perch !== undefined && typeof perch !== 'function')
+    || !Number.isInteger(seed) || seed < 0 || seed > 0xffffffff
+    || !['on', 'off'].includes(encounters)) return undefined;
+  return { columns, rows, elapsedMs, ascii, animal, theme, size, motion, position, style, tether, perch, encounters, seed };
+}
 
+/** Single complete animal, bounded to the top half; optional perches belong to lively motion. */
+export function renderAnimal(input) {
+  const settings = resolveInput(input);
+  return settings ? renderPlaced(settings) : [];
+}
+
+function renderPlaced(input, actor) {
+  const { columns, rows, elapsedMs, ascii, animal, theme, size, motion, position, style, tether, perch, seed } = input;
+  if (actor?.scale === 0) return [];
   const halfRows = Math.floor(rows / 2);
   const seconds = elapsedMs * MOTIONS[motion] / 1000;
-  const palette = THEMES[theme];
-  const lively = motion === 'lively' && position === 'roam';
+  const selectedPalette = THEMES[theme];
+  const palette = actor?.id === 'visitor'
+    ? { ...selectedPalette, primary: selectedPalette.secondary, secondary: selectedPalette.primary }
+    : selectedPalette;
+  const lively = (motion === 'lively' || motion === 'random') && position === 'roam';
   const base = GEOMETRIES[animal](seconds, palette, NEUTRAL_POSE);
   // Only the spider rotates. Its original conservative radius also contains scans.
-  const angle = animal === 'spider'
-    ? Math.sin(seconds * 0.07) * 0.52 + Math.sin(seconds * 0.13) * 0.22 : 0;
+  const angle = (animal === 'spider'
+    ? Math.sin(seconds * 0.07) * 0.52 + Math.sin(seconds * 0.13) * 0.22 : 0) + (actor?.tilt ?? 0);
   const cosine = Math.cos(angle);
   const sine = Math.sin(angle);
   const extent = animal === 'spider' ? { x: RADIUS, y: RADIUS } : extents(base);
   const elastic = lively ? ELASTIC_MARGIN : 1;
   let scale = Math.min(SIZES[size], (columns * 2 - 5) / (extent.x * 2 * elastic),
     (halfRows * 4 - 5) / (extent.y * 2 * elastic));
-  const marginX = (extent.x * elastic * scale + 2) / 2;
-  const marginY = (extent.y * elastic * scale + 2) / 4;
+  const region = actor?.region ?? (motion === 'random' && position === 'roam' ? sceneRegion(columns, halfRows, size) : undefined);
+  const marginX = region?.x ?? (extent.x * elastic * scale + 2) / 2;
+  const marginY = region?.y ?? (extent.y * elastic * scale + 2) / 4;
+  if (region) scale = Math.min(scale, Math.max(0.05, (marginX * 2 - 2) / (extent.x * elastic)),
+    Math.max(0.05, (marginY * 4 - 2) / (extent.y * elastic)));
   const rangeX = Math.max(0, columns - 1 - marginX * 2);
   const rangeY = Math.max(0, halfRows - 1 - marginY * 2);
 
+  scale *= actor?.scale ?? 1;
   let state;
   let horizontal;
   let vertical;
-  if (lively) {
+  if (actor || (motion === 'random' && position === 'roam')) {
+    state = actor?.state ?? sampleJourney({ elapsedMs, seed });
+    [horizontal, vertical] = state.point;
+  } else if (lively) {
     const target = hop => {
       const point = perch?.(hop);
       if (point && Number.isFinite(point.x) && Number.isFinite(point.y)) {
@@ -650,4 +679,50 @@ export function renderAnimal(input) {
     text: ascii ? cell.text : String.fromCodePoint(0x2800 + cell.mask),
     color: cell.color,
   }));
+}
+
+/** Compose whole bodies before bounded effects; no adapter may slice the returned scene. */
+export function renderScene(input) {
+  const settings = resolveInput(input);
+  if (!settings) return { cells: [], phase: 'hidden', animals: [] };
+  const { columns, rows, elapsedMs, seed, animal, motion, position, encounters, theme, ascii, size } = settings;
+  if (motion !== 'random' || position !== 'roam') {
+    return { cells: renderPlaced(settings), phase: 'solo', animals: [animal] };
+  }
+  const height = Math.floor(rows / 2);
+  const scene = planScene({ columns, rows: height, elapsedMs, seed, animal, encounters });
+  if (scene.phase === 'solo') return { cells: renderPlaced(settings), phase: 'solo', animals: [animal] };
+  // Shared cell-space coordinates keep different species at the same meeting point.
+  const region = sceneRegion(columns, height, size);
+  const cells = new Map();
+  const animals = [];
+  for (const actor of scene.actors) {
+    const frame = renderPlaced({ ...settings, animal: actor.animal, tether: 'off' }, { ...actor, region });
+    if (frame.length) animals.push(actor.animal);
+    for (const cell of frame) {
+      const key = `${cell.x}:${cell.y}`;
+      const previous = cells.get(key);
+      if (previous && !ascii) {
+        previous.text = String.fromCodePoint(0x2800 + ((previous.text.codePointAt(0) - 0x2800) | (cell.text.codePointAt(0) - 0x2800)));
+      } else cells.set(key, cell);
+    }
+  }
+  for (const effect of scene.effects) {
+    const x = Math.round(region.x + (columns - 1 - region.x * 2) * clamp01(effect.point[0]));
+    const y = Math.round(region.y + (height - 1 - region.y * 2) * clamp01(effect.point[1]));
+    const burst = [];
+    for (const [dx, dy] of [[-2, 0], [2, 0], [0, -1], [0, 1]]) {
+      if (x + dx < 0 || x + dx >= columns || y + dy < 0 || y + dy >= height) continue;
+      const key = `${x + dx}:${y + dy}`;
+      const previous = cells.get(key);
+      const text = ascii ? (effect.kind === 'puff' ? '.' : '*') : (effect.kind === 'puff' ? '⠄' : '⠿');
+      if (previous) {
+        previous.color = THEMES[theme].bright;
+        previous.text = ascii ? text : String.fromCodePoint(0x2800
+          + ((previous.text.codePointAt(0) - 0x2800) | (text.codePointAt(0) - 0x2800)));
+      } else burst.push([key, { x: x + dx, y: y + dy, text, color: THEMES[theme].bright }]);
+    }
+    if (cells.size + burst.length <= SCENE_CAPACITY) for (const [key, cell] of burst) cells.set(key, cell);
+  }
+  return { cells: [...cells.values()], phase: scene.phase, animals };
 }

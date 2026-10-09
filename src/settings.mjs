@@ -17,26 +17,27 @@ export const THEMES = Object.freeze({
   mono: Object.freeze({ primary: '\x1b[39m', secondary: '\x1b[39m', joint: '\x1b[39m', bright: '\x1b[39m' }),
 });
 export const SIZES = Object.freeze({ small: 0.65, medium: 0.95, large: 1.3 });
-/** Clock factors; `lively` also replaces slow roaming with perch-and-dart flights. */
-export const MOTIONS = Object.freeze({ still: 0, slow: 0.45, normal: 1, lively: 1 });
+/** Clock factors; `lively` uses perch-and-dart flights, `random` uses seeded journeys. */
+export const MOTIONS = Object.freeze({ still: 0, slow: 0.45, normal: 1, lively: 1, random: 1 });
 export const POSITIONS = Object.freeze(['roam', 'left', 'center', 'right']);
 export const STYLES = Object.freeze(['wireframe', 'orb', 'fuzzy']);
 export const TETHERS = Object.freeze(['on', 'off']);
+export const ENCOUNTERS = Object.freeze(['on', 'off']);
 export const FRAME_RATES = Object.freeze(['15', '30']);
 export const DEFAULT_SETTINGS = Object.freeze({
-  animal: 'spider', theme: 'neon', size: 'medium', motion: 'lively', position: 'roam',
-  style: 'wireframe', tether: 'on', fps: '15', ascii: false,
+  animal: 'spider', theme: 'neon', size: 'medium', motion: 'random', position: 'roam',
+  style: 'wireframe', tether: 'on', encounters: 'on', fps: '15', ascii: false,
 });
 const animalIds = ANIMALS.map(({ id }) => id);
 const choices = Object.freeze({
   animal: animalIds, theme: Object.keys(THEMES), size: Object.keys(SIZES), motion: Object.keys(MOTIONS),
-  position: POSITIONS, style: STYLES, tether: TETHERS, fps: FRAME_RATES,
+  position: POSITIONS, style: STYLES, tether: TETHERS, encounters: ENCOUNTERS, fps: FRAME_RATES,
 });
 export const HELP = [
   'Neon companions: /neon list, /neon demo cat, /neon animal fox, /neon next.',
   '/neon auto | on | off | demo [animal] | status | ascii | braille | reset | help',
   `/neon animal ${animalIds.join('|')}`,
-  ...['theme', 'size', 'motion', 'position', 'style', 'tether', 'fps'].map(key => `/neon ${key} ${choices[key].join('|')}`),
+  ...['theme', 'size', 'motion', 'position', 'style', 'tether', 'encounters', 'fps'].map(key => `/neon ${key} ${choices[key].join('|')}`),
   'Selection does not turn animation on. Demo lasts 17 seconds; settings last this session.',
   'Typing/dialogs pause the overlay. CLI_NEON_REDUCED_MOTION=1 disables it.',
 ].join('\n');

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.0
+
+- Added default `random` motion: seeded horizontal, vertical, diagonal and corner routes with variable pauses, curved travel, wind-up, gaze, limb drag and landing squash. Previous motion modes remain selectable.
+- Added occasional different-species encounters: arrival, chase, approach, contact sparks, cartoon tussle, loser shrink/puff, winner bounce and return to solo roaming. Either animal can lose; the selected animal waits for a winning visitor to leave before returning.
+- Added `/neon encounters on|off`, preview/companion `--encounters on|off`, and preview key `e`. Native status reports the latest phase and visible species.
+- Re-fit complete actors to the terminal's drawable area on resize. Small areas fall back to one animal; timing stays stable across resize rather than rewinding the route or fight.
+- Increased the scene limit to 256 unique cells, retaining the 128-cell per-animal bound. Effects do not truncate bodies; contact effects also highlight occupied cells. Visitors swap the selected palette's primary/secondary colors.
+- Verified 46 tests plus live WSL preview, companion, OMP 18.8.6 and Pi 1.1.0 scenes, controls, resize, typing pause and off cleanup. Added a documented real-preview phase sheet and BMAD critique report.
+- Replaced the README's opening 1.3.0 GIF with a 28-second 1.4.0 random-encounter loop captured from a real OMP 18.8.7 session. Documented the 15 Hz cell reconstruction and preserved the earlier media.
+
 ## 1.3.0
 
 - Added `lively` motion as the default: animals perch, wind up, dart with an overshoot and land with a squash, with gaze and limb drag following the flight. Motion stays stateless and continuous (at most about 5 cells per frame at 30 fps); `normal`, `slow` and `still` are unchanged.

@@ -1,4 +1,5 @@
-import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, STYLES, TETHERS, FRAME_RATES, DEFAULT_SETTINGS } from '../src/settings.mjs';
+import { randomInt } from 'node:crypto';
+import { ANIMALS, THEMES, SIZES, MOTIONS, POSITIONS, STYLES, TETHERS, ENCOUNTERS, FRAME_RATES, DEFAULT_SETTINGS } from '../src/settings.mjs';
 
 const choices = {
   animal: ANIMALS.map(({ id }) => id),
@@ -8,6 +9,7 @@ const choices = {
   motion: Object.keys(MOTIONS),
   position: POSITIONS,
   tether: TETHERS,
+  encounters: ENCOUNTERS,
   fps: FRAME_RATES,
 };
 const HELP = [
@@ -22,7 +24,7 @@ const HELP = [
     `  --${key.padEnd(22)}${values.join('|')} (default: ${DEFAULT_SETTINGS[key]})`),
   '  --ascii                 Use ASCII instead of Braille',
   '',
-  'Keys: n/p animal, y style, t theme, s size, m motion, l position, w tether, f fps, a glyphs.',
+  'Keys: n/p animal, y style, t theme, s size, m motion, l position, w tether, e encounters, f fps, a glyphs.',
   'Exit: q, Escape, or Ctrl+C.',
   '',
   'Examples:',
@@ -53,8 +55,9 @@ function parseOptions(args) {
   return { settings, help, list };
 }
 
-function preview(renderAnimal, settings) {
+function preview(renderScene, settings) {
   const started = performance.now();
+  const seed = randomInt(0x1_0000_0000);
   const wasRaw = process.stdin.isRaw ?? false;
   let stopped = false;
   let terminalActive = false;
@@ -108,6 +111,7 @@ function preview(renderAnimal, settings) {
       else if (key === 'm') cycle('motion');
       else if (key === 'l') cycle('position');
       else if (key === 'w') cycle('tether');
+      else if (key === 'e') cycle('encounters');
       else if (key === 'f') {
         cycle('fps');
         clearInterval(timer);
@@ -127,7 +131,7 @@ function preview(renderAnimal, settings) {
         if (row >= 1 && row <= rows) frame += `\x1b[${row};1H\x1b[0m${value.slice(0, width)}`;
       };
       const animal = ANIMALS.find(({ id }) => id === settings.animal);
-      const status = `${settings.style} | ${settings.theme} | ${settings.size} | ${settings.motion} | ${settings.position} | tether ${settings.tether} | ${settings.fps} fps | ${settings.ascii ? 'ASCII' : 'Braille'}`;
+      const status = `${settings.style} | ${settings.theme} | ${settings.size} | ${settings.motion} | ${settings.position} | tether ${settings.tether} | encounters ${settings.encounters} | ${settings.fps} fps | ${settings.ascii ? 'ASCII' : 'Braille'}`;
       if (columns < 40 || rows < 14) {
         text(1, `${animal.label} preview`);
         text(2, 'Resize to at least 40 columns x 14 rows.');
@@ -136,19 +140,20 @@ function preview(renderAnimal, settings) {
         text(Math.min(rows, 6), 'q/Esc: exit | n/p: animal');
         if (rows >= 7) text(7, 't/s/m/l/a: style controls');
       } else {
-        text(1, `Neon companions | ${animal.label}`);
-        text(2, status);
-        const cells = renderAnimal({
+        const scene = renderScene({
           columns,
           rows: (rows - 6) * 2,
           elapsedMs: performance.now() - started,
           ...settings,
+          seed,
         });
-        for (const cell of cells) {
+        text(1, `Neon companions | ${scene.animals.join(' + ') || animal.label} | ${scene.phase}`);
+        text(2, status);
+        for (const cell of scene.cells) {
           frame += `\x1b[${cell.y + 4};${cell.x + 1}H${cell.color}${cell.text}`;
         }
-        if (cells.length === 0) text(4, 'Not enough room for this companion. Resize to continue.');
-        text(rows - 2, 'n/p: animal | y: style | t: theme | s: size');
+        if (scene.cells.length === 0) text(4, 'Not enough room for these companions. Resize to continue.');
+        text(rows - 2, `n/p: animal | y: style | t: theme | s: size | e: encounters ${settings.encounters}`);
         text(rows - 1, 'm: motion | l: position | w: tether | f: fps | a: glyphs');
         text(rows, 'q/Esc/Ctrl+C: exit | Live standalone preview');
       }
@@ -194,8 +199,8 @@ try {
     if (!process.stdout.isTTY || !process.stdin.isTTY) {
       throw new Error('An interactive terminal is required. Use --help or --list, or /neon demo in OMP/Pi.');
     }
-    const { renderAnimal } = await import('../src/renderer.mjs');
-    preview(renderAnimal, settings);
+    const { renderScene } = await import('../src/renderer.mjs');
+    preview(renderScene, settings);
   }
 } catch (error) {
   console.error(`Preview: ${error.message}`);

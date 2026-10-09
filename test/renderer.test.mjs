@@ -119,7 +119,7 @@ test('ASCII rasterization preserves connected directional geometry rather than s
 test('capacity fitting keeps every leg connected rather than truncating one side', () => {
   for (const ascii of [false, true]) {
     for (let elapsedMs = 0; elapsedMs < 70_000; elapsedMs += 1193) {
-      const frame = renderAnimal({ columns: 80, rows: 32, elapsedMs, ascii });
+      const frame = renderAnimal({ columns: 80, rows: 32, elapsedMs, ascii, tether: 'off' });
       assert.ok(largestConnectedComponent(frame) >= frame.length * 0.8,
         'only short scan accents may be separate from the connected spider');
       const center = centroid(frame);
@@ -149,7 +149,7 @@ test('lively default perches, then darts continuously across the viewport', () =
     for (const frameMs of [67, 33]) {
       const centers = [];
       for (let elapsedMs = 0; elapsedMs <= 60_000; elapsedMs += frameMs) {
-        centers.push(centroid(renderAnimal({ columns, rows, elapsedMs, animal })));
+        centers.push(centroid(renderAnimal({ columns, rows, elapsedMs, animal, motion: 'lively', tether: 'off' })));
       }
       const steps = centers.slice(1).map((c, i) => Math.hypot(c.x - centers[i].x, c.y - centers[i].y));
       // A dart is fast but traverses intermediate cells: never a cross-screen jump.
@@ -220,7 +220,7 @@ test('filled styles add a body without changing the outline footprint, and tethe
     assert.ok(fuzzy.length > orb.length, `${animal} fuzzy adds a fringe`);
   }
   // During a dart the silk trails behind; off must not draw it.
-  const darting = { columns: 160, rows: 64, elapsedMs: 2600 * 3 + 2300, animal: 'mite' };
+  const darting = { columns: 160, rows: 64, elapsedMs: 2600 * 3 + 2300, animal: 'mite', motion: 'lively' };
   assert.ok(renderAnimal(darting).length > renderAnimal({ ...darting, tether: 'off' }).length);
 });
 

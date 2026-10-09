@@ -1,0 +1,25 @@
+# Random wildlife and encounters: BMAD specification
+
+## Goal and observed constraints
+User requests vertical, horizontal, diagonal, corner-to-corner and varied random movement that follows the WSL terminal dimensions, occasional two animals, a cartoon fight on meeting, loser disappearance, and additional expressive movement. Current renderer has one animal, slow sinusoidal drift and short lively hops. Native OMP/Pi use a safe region above the editor, at most half the viewport, pause on typing/dialogs and remove on off. Preserve these protections; standalone preview uses all space between its header/footer. No host patches, dependencies, network calls or copied art.
+
+## Design decision
+Add default motion `random` and session-local `encounters on|off` (default on). Retain still/slow/normal/lively and fixed positions. Encounters only run with random + roam and at least 80 columns by 12 safe rows; otherwise display one complete animal. Each native/preview session creates a random uint32 seed once, never fresh randomness per frame. Same seed/time/viewport produces the same result for regression and frame reconstruction. Resize re-fits actors and meeting locations; never paints outside the safe region.
+
+Random routes mix edge/corner, horizontal, vertical and diagonal waypoints, eased travel, pauses, wind-up, curved excursions and landing squash. Travel duration depends on route length in a fixed 120-column by 24-safe-row logical viewport; physical dimensions only fit the geometry, so resize never retimes an active route or rewinds an encounter. Apparent cell speed therefore scales with terminal size; verify no frame-sized teleports at realistic viewports and 15/30 fps. Pair events are occasional, seeded and time-based: arrival -> roaming/chase -> approach -> contact/fight -> loser shrink/disappear -> winner bounce -> departure/return to solo. Either animal can lose. A defeated selected animal stays absent during the winner's turn and returns after the visitor leaves. No combat stats, user interaction, model inference or violent imagery.
+
+## Interfaces and ownership
+`src/scene.mjs` exports `sampleJourney({elapsedMs,seed=1})` and `planScene({elapsedMs,seed=1,columns,rows,animal,encounters='on'})`. Here rows is SAFE drawable height, not physical terminal rows. Inputs validated by renderer. Journey returns state `{point:[u,v],from:[u,v],to:[u,v],flying,anticipation,landing}` with normalized coords in [0,1] and bounded finite calculations. `planScene` returns `{phase,actors,effects}`. Actor `{id:'resident'|'visitor',animal,state,scale:0..1,tilt:number}`. Effects `{point:[u,v],kind:'spark'|'puff'}`. Use selected theme/style for both actors; visitor is a distinct species with primary/secondary palette colors swapped for legibility. Actors must meet before fight, have smooth positions and scale transitions across event boundaries, and reduce to resident's journey outside encounters. Tests target transitions, winner/loser, resize continuity and trajectory bounds, not incidental durations.
+
+Renderer owns `renderScene(input) -> {cells,phase,animals}` using physical/synthetic rows with same top-half convention as renderAnimal. `renderAnimal` remains the single-animal geometry seam and gains random + seed; internal placement override applies planner state/scale/tilt without exporting it. Scene combines complete independently fitted bodies into unique positions, max 256 cells (<=128 per animal, effects admitted only when they fit); do not truncate geometry in adapter. Invalid options return empty cells. Native/preview/companion migrate to renderScene, report phase/species where practical. Integration worker owns settings, extension, demo, companion and parser tests. Parent owns renderer, renderer tests, docs and final verification.
+
+## Acceptance and critique gate
+- Seeded journeys cover both axes, both directions, opposite corners and intermediates; different sessions vary. No frame-level random jitter.
+- All species/styles/glyphs remain whole, bounded and unique, including pair/fight/defeat, resize, tiny terminals and finite extremes.
+- Pair visibly arrives, approaches, contacts, fights and loses one actor; both resident and visitor can win across seeds; no visitor in still/fixed/encounters-off modes.
+- Expressive anticipation, curved travel, squash, clash sparks, defeat puff and winner bounce are visible, not just status labels.
+- Actual preview, companion and OMP/Pi command surfaces exercised, with resize, pause/off, controls and cleanup. No paid model prompts.
+- BMAD adversarial critique records concrete findings/fixes and observed evidence. Update README/changelog; existing recordings remain historical and are not presented as proof of new behavior.
+- Initial implementation was local-only. A subsequent user request explicitly authorized commit and push with a new README GIF; see the verification report's publication follow-up.
+
+Readiness: PASS for implementation. Acceptance: verified in [the runtime and critique report](../operations/random-encounters-verification.md), including the authorized README GIF and publication follow-up.

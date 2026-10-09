@@ -1,5 +1,6 @@
 import process from "node:process";
-import { HOP_SECONDS, renderAnimal } from "./renderer.mjs";
+import { randomInt } from "node:crypto";
+import { HOP_SECONDS, renderScene, SCENE_CAPACITY } from "./renderer.mjs";
 import { perchCandidates, pickPerch } from "./perch.mjs";
 import { ANIMALS, DEFAULT_SETTINGS, HELP, parseNeonCommand } from "./settings.mjs";
 
@@ -68,7 +69,6 @@ interface PoolCell {
 
 const WIDGET_KEY = "cli-neon-overlay";
 const FRAME_MS: Record<string, number> = { "15": 67, "30": 33 };
-const MAX_CELLS = 128;
 
 const HEADLESS_MODE = (() => {
   for (let i = 2; i < process.argv.length; i++) {
@@ -109,6 +109,10 @@ class NeonSession {
   private documentSafeRows = 0;
   private visibleLines: readonly string[] = [];
   private perches = new Map<number, { x: number; y: number } | undefined>();
+  private readonly seed = randomInt(0x1_0000_0000);
+  private frameColumns = 0;
+  private frameRows = 0;
+  private latestScene: { phase: string; animals: string[] } | undefined;
 
   constructor(private readonly ctx: Context, private readonly kind: HarnessKind) {}
 
@@ -265,13 +269,17 @@ class NeonSession {
       this.setAllHidden();
       return;
     }
-    const cells = renderAnimal({
-      columns, rows: safeRows * 2, elapsedMs: now - this.startedAt, ...this.settings,
-      perch: this.visibleLines.length ? (hop: number) => this.perchFor(hop, safeRows, columns) : undefined,
+    const scene = renderScene({
+      columns, rows: safeRows * 2, elapsedMs: now - this.startedAt, ...this.settings, seed: this.seed,
+      perch: this.settings.motion === "lively" && this.visibleLines.length
+        ? (hop: number) => this.perchFor(hop, safeRows, columns) : undefined,
     });
+    const { cells } = scene;
+    this.latestScene = { phase: scene.phase, animals: scene.animals };
+    this.frameColumns = columns;
+    this.frameRows = rows;
     this.preservingFocus(() => {
-      const count = Math.min(cells.length, MAX_CELLS);
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
         const entry = this.pool[i] ?? this.createCell();
         entry.position.row = cell.y;
@@ -284,7 +292,7 @@ class NeonSession {
           entry.hidden = false;
         }
       }
-      for (let i = count; i < this.pool.length; i++) this.hideCell(this.pool[i]);
+      for (let i = cells.length; i < this.pool.length; i++) this.hideCell(this.pool[i]);
     });
     tui.requestRender();
   }
@@ -302,6 +310,7 @@ class NeonSession {
   private createCell(): PoolCell {
     const tui = this.tui;
     if (!tui) throw new Error("TUI not acquired");
+    if (this.pool.length >= SCENE_CAPACITY) throw new Error("Scene exceeds overlay capacity");
     const lines = [""];
     const position: OverlayOptions = {
       row: 0,
@@ -309,7 +318,7 @@ class NeonSession {
       width: 1,
       maxHeight: 1,
       ...(this.kind === "pi" ? { nonCapturing: true } : {}),
-      visible: (columns, rows) => entry.active && this.displayAllowed(columns, rows) && position.col >= 0 && position.col < columns && position.row >= 0 && position.row < this.safeHeight(columns, rows),
+      visible: (columns, rows) => entry.active && columns === this.frameColumns && rows === this.frameRows && this.displayAllowed(columns, rows) && position.col >= 0 && position.col < columns && position.row >= 0 && position.row < this.safeHeight(columns, rows),
     };
     const entry: PoolCell = { active: false, hidden: false, lines, position };
     this.pool.push(entry);
@@ -347,6 +356,9 @@ class NeonSession {
   private stopAnimation(): void {
     clearInterval(this.timer);
     this.timer = undefined;
+    this.latestScene = undefined;
+    this.frameColumns = 0;
+    this.frameRows = 0;
     if (this.pool.length === 0) return;
     const pool = this.pool;
     this.pool = [];
@@ -368,8 +380,8 @@ class NeonSession {
   }
 
   private configuration(): string {
-    const { animal, theme, size, motion, position, style, tether, fps, ascii } = this.settings;
-    return `Neon: ${this.mode}, ${animal}, ${style}, ${theme}, ${size}, ${motion}, ${position}, tether ${tether}, ${fps} fps, ${ascii ? "ASCII" : "Braille"}`;
+    const { animal, theme, size, motion, position, style, tether, encounters, fps, ascii } = this.settings;
+    return `Neon: ${this.mode}, ${animal}, ${style}, ${theme}, ${size}, ${motion}, ${position}, tether ${tether}, encounters ${encounters}, ${fps} fps, ${ascii ? "ASCII" : "Braille"}`;
   }
 
   private status(): string {
@@ -385,7 +397,8 @@ class NeonSession {
       else if (!this.focusCaptured || this.focus() !== this.baseFocus) state = "paused (another component owns focus)";
       else state = this.demoUntil > Date.now() ? "demo (17-second preview)" : "running";
     }
-    return `${this.configuration()}, ${state}.`;
+    const scene = this.latestScene ? `, latest scene ${this.latestScene.phase} (${this.latestScene.animals.join(", ") || "no animals"})` : "";
+    return `${this.configuration()}, ${state}${scene}.`;
   }
 
   dispose(removeWidget = true): void {
@@ -428,7 +441,7 @@ export function register(host: ExtensionHost, options: { kind: HarnessKind }): v
     session = undefined;
   });
   host.registerCommand("neon", {
-    description: "Neon animal companions: list, demo cat, animal, next, style, theme, size, motion, position, tether, fps, on/off",
+    description: "Neon animal companions: list, demo cat, animal, next, style, theme, size, motion, position, tether, encounters, fps, on/off",
     handler(args, ctx) {
       if (ctx.agent?.kind === "sub") return;
       const current = ensureSession(ctx);
